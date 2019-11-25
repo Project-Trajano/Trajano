@@ -26,16 +26,21 @@ fs.readFile("starbucksLocations/locations.json", "utf8", (err, locationsData) =>
   output = output
     .filter(location => location.country === "ES")
   let result = [...output]
-  console.log(result)
-  return result
-}).then((results) => {
-  Location.create(results, (err) => {
-    if (err) {
-      throw (err)
-    }
-    console.log(`Created ${results.length} locations`)
-    mongoose.connection.close();
-  });
-}).catch(err => {
-  console.log(err)
+  Location.insertMany(result)
+    .then((inserted) => {
+      console.log(`Inserted ${inserted.length} register`)
+      mongoose.disconnect()
+    })
+    .catch((err) => console.log(err))
 })
+// .then((results) => {
+//   Location.create(results, (err) => {
+//     if (err) {
+//       throw (err)
+//     }
+//     console.log(`Created ${results.length} locations`)
+//     mongoose.connection.close();
+//   });
+// }).catch(err => {
+//   console.log(err)
+// })
