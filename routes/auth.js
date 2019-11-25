@@ -13,11 +13,14 @@ router.get("/login", (req, res, next) => {
 });
 
 router.post("/login", passport.authenticate("local", {
-  successRedirect: "/",
+  // successRedirect: "/",
   failureRedirect: "/auth/login",
   failureFlash: true,
   passReqToCallback: true
-}));
+}), function(req,res) {
+  console.log(req.user._id)
+  res.redirect("/")
+});
 
 router.get("/signup", (req, res, next) => {
   res.render("auth/signup");

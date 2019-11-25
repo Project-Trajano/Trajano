@@ -1,0 +1,46 @@
+<h1>Buscador libros</h1>
+
+  <br>
+  <form action="/bookinfo" method="POST">
+    <label for="title-input">Título</label>
+    <input name="title" type="text" placeholder="Introduce el título de tu libro">
+    <button type="submit" class="btn btn-dark">Enviar información</button>
+    <br>
+    <select name="book" id="book-list">
+      <option>Seleccionar</option>
+    </select>
+  </form>
+  <br>
+<div id="content"></div>
+</div>
+<script>
+  function handleResponse(response) { 
+    for (let i = 0; i < response.items.length; i++) {
+      let item = response.items[i];
+      document.getElementById("book-list").innerHTML += "<option class='option-item'><br><strong>" + item.volumeInfo.title + "</strong> - " + item.volumeInfo.authors + "</option>";
+
+    }
+
+    listenTitle = function () {
+      document.getElementById("content").innerHTML = "";
+      let result = document.getElementById("book-list").selectedIndex
+      let item = response.items[result - 1]
+      document.getElementById("content").innerHTML += "<br><strong>" + item.volumeInfo.title + "</strong> - " + item.volumeInfo.authors;
+      document.getElementById("content").innerHTML += "<br>" + item.volumeInfo.authors;
+      let image = `<img src="${item.volumeInfo.imageLinks.thumbnail}" alt="">`
+      document.getElementById("content").innerHTML += "<br>" + image;
+      document.getElementById("content").innerHTML += "<br>" + item.volumeInfo.description;
+      document.getElementById("content").innerHTML += "<br>" + item.volumeInfo.categories;
+      document.getElementById("content").innerHTML += "<br>" + item.volumeInfo.averageRating + "<br>";
+      console.log(response.items[result])
+      return result
+    }
+
+    document.addEventListener("change", listenTitle)
+
+  }
+
+</script>
+<script
+  src="https://www.googleapis.com/books/v1/volumes?q={{searchInput}}&filter=partial&callback=handleResponse"></script>
+</div>

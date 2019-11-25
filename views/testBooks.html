@@ -1,0 +1,24 @@
+<html>
+  <head>
+    <title>Books API Example</title>
+  </head>
+  <body>
+    <h1>Buscador libros</h1>
+    <div id="content"></div>
+    <script>
+      function handleResponse(response) {
+      for (var i = 0; i < response.items.length; i++) {
+        var item = response.items[i];
+        document.getElementById("content").innerHTML += "<br>" + item.volumeInfo.title;
+        document.getElementById("content").innerHTML += "<br>" + item.volumeInfo.authors;
+        let image = `<img src="${item.volumeInfo.imageLinks.thumbnail}" alt="">`
+        document.getElementById("content").innerHTML += "<br>" + image;
+        document.getElementById("content").innerHTML += "<br>" + item.volumeInfo.description;
+        document.getElementById("content").innerHTML += "<br>" + item.volumeInfo.categories;
+        document.getElementById("content").innerHTML += "<br>" + item.volumeInfo.averageRating + "<br>";
+      }
+    }
+    </script>
+    <script src="https://www.googleapis.com/books/v1/volumes?q=los+pilares+de+la+tierra&callback=handleResponse"></script>
+  </body>
+</html>

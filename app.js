@@ -84,4 +84,7 @@ app.use('/auth', authRoutes);
 const genRoute = require('./routes/jsonGenerator');
 app.use('/', genRoute);
 
+const searchForm = require('./routes/bookSearchForm');
+app.use('/', searchForm);
+
 module.exports = app;
