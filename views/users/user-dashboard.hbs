@@ -3,13 +3,17 @@
 <p> leer y donde podrás encontrarlo.</p>
 <div>
   <h3>Tu perfil: </h3>
-    Nombre: {{username}} <br>
-    Apellidos: {{lastName}} <br>
-    Email: {{email}} <br>
-    Teléfono: {{phone}} <br><br>
-    <a href="/users/user-profile">Editar Perfil</a> <br>
-    <a href="/users/user-collection">Colecctión de libros</a> <br>
-    <a href="/auth/logout">Cerrar sesión</a>
-    <a href="/">Atras</a>
-
+  <ul>
+    <li>Nombre: {{username}}</li>
+    <li>Apellidos: {{lastName}}</li>
+    <li>Email: {{email}}</li>
+    <li>Teléfono: {{phone}}</li>
+  </ul>
+</div>
+<div>
+  <a href="/users/user-profile">Editar Perfil</a>
+  <a href="/users/user-collection">Colecctión de libros</a>
+  <a href="/auth/logout">Cerrar sesión</a>
+</div>
+<a href="/">Atras</a>
 </div>
