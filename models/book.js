@@ -7,7 +7,6 @@ const bookSchema = new Schema({
   genre: {type: String, require: true},
   rating: Number,
   state: Number,
-  gender: String,
   description: String,
   locationId: Schema.Types.ObjectId,
   userId: Schema.Types.ObjectId,
@@ -19,4 +18,4 @@ const bookSchema = new Schema({
 });
 
 const Book = mongoose.model('Book', bookSchema);
-module.exports = User;
+module.exports = Book;

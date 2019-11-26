@@ -1,0 +1,13 @@
+let bookNames = []
+
+document.querySelector("input[name=title]").onkeyup = function (e){
+	fetch(`https://www.googleapis.com/books/v1/volumes?q=${e.target.value}&orderBy=relevance`)
+	.then(books => books.json())
+	.then(books => {
+		bookNames = books.items.map(book => book.volumeInfo.title )
+
+    // DOM Population with bookNames
+    bookNames = bookNames.map(bookName => `<li>${bookName}</li>`)
+    document.getElementById("autocompleter").innerHTML = bookNames.join()
+	})
+}
