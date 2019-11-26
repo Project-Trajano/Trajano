@@ -1,13 +1,15 @@
-<h2>PANEL DE USUARIO</h2>
+<h2>Panel de usuario: </h2>
+<p>Aquí podrás añadir tus libros a la colección de Trajano, gestionar tu perfil o elegir que te apetece</p>
+<p> leer y donde podrás encontrarlo.</p>
 <div>
-  <p>Nombre: {{this.username}}</p>
-  <p> <a href="/users/user-profile">Editar Perfil</a>
-    <a href="/users/user-collection">Colecctión de libros</a>
-  </p>
-  <p>
+  <h3>Tu perfil: </h3>
+    Nombre: {{username}} <br>
+    Apellidos: {{lastName}} <br>
+    Email: {{email}} <br>
+    Teléfono: {{phone}} <br><br>
+    <a href="/users/user-profile">Editar Perfil</a> <br>
+    <a href="/users/user-collection">Colecctión de libros</a> <br>
     <a href="/auth/logout">Cerrar sesión</a>
-  </p>
-  <p>
     <a href="/">Atras</a>
-  </p>
+
 </div>

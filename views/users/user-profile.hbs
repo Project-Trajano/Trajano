@@ -1,10 +1,23 @@
 <h2>PERFIL DE USUARIO</h2>
 <div>
-  <form method="POST" action="/users/user-profile">
-    <label for="">Nombre: </label><input type="text" placeholder="{{username}}">
-    <input type="hidden" name="_id" value="{{id}}">
-    <p> <input type="submit" value="done">
-    </p>
-  </form>
-  <p><a href="/user-dashboard">Atras</a></p>
+  <div>
+    <h3>Información pública:</h3>
+    <form method="POST" action="/users/user-profile">
+      Nombre: <input type="text" name="username" value="{{username}}">
+      Apellidos: <input type="text" name="lastName" value="{{lastName}}">
+      Email: <input type="text" name="email" value="{{email}}">
+      Teléfono: <input type="text" name="phone" value="{{phone}}">
+      <input type="hidden" name="_id" value="{{id}}">
+      <input type="submit" value="Guardar">
+    </form>
+  </div>
+  <div>
+    <h3>Imagen de perfil:</h3>
+    <form action="/users/uploadPhoto" method="POST" enctype="multipart/form-data">
+      <img src={{path}} alt="user-photo">
+      <input type="file" name="photo">
+      <input type="submit" value="Subir imagen">
+    </form>
+  </div>
+  <p><a href="/users/user-dashboard">Atras</a></p>
 </div>
