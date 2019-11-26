@@ -1,11 +1,21 @@
-<h1>Añadir Nuevo Libro a Trajano</h1>
+<h2>Tus Contribuciones a Trajano</h2>
+<ul id="content">
+  {{#each bookFoundbyUser}}
+  <li><strong>Título: </strong>{{title}} --> <strong>Autor: </strong>{{author}} --> <strong>Estado: </strong>{{state}}</li>
+  <strong></strong>
+  {{/each}}
+</ul>
+<br><br>
 
+<h2>Añadir Nuevo Libro a Trajano</h2>
 <br>
 <form action="/bookinfo" method="POST">
   <label for="title-input">Busca tu libro</label>
   <input name="title" type="text" placeholder="Introduce el título de tu libro">
   <button type="submit" class="btn btn-dark">Enviar información</button>
   <br>
+  {{!-- <ul id="autocompleter"> --}}
+  </ul>
   <select name="book" id="book-list">
     <option>Seleccionar</option>
   </select>
@@ -24,11 +34,8 @@
   <button type="submit" class="btn btn-dark">Contribuir libro a Trajano</button>
 </form>
 <br><br>
-<div id="content"></div>
-</div>
-<br><br>
 
-<img src="../public/images/book-placeholder.png" alt="">
+
 
 <script>
   let arr;
@@ -43,9 +50,9 @@
   document.getElementById('form-group').innerHTML += `<label for="description-input">Descripción: </label><br><input name="description" type="text" class="form-control" id="description-input" value="${bookDescription}"><br><br>`
   document.getElementById('form-group').innerHTML += `<label for="rating-input">Calificación: </label><br><input name="rating" type="text" class="form-control" id="rating-input" value="${bookRating}"><br><br>`
   document.getElementById('form-group').innerHTML += `<label for="category-input">Género: </label><br><input name="category" type="text" class="form-control" id="category-input" value="${bookCategory}"><br><br>`
-  document.getElementById('form-group').innerHTML += `<label for="category-input">Estado: </label><br><input name="state" type="text" class="form-control" id="state-input" value="Introducir Estado"><br><br>`
+  document.getElementById('form-group').innerHTML += `<label for="state-input">Estado: </label><br><input name="state" type="number" class="form-control" id="state-input" placeholder="Introducir Estado"><br><br>`
   document.getElementById('form-group').innerHTML += `<img src="../images/book-placeholder.png" alt="${bookTitle} front image"><br><br>`
-  
+
   function handleResponse(response) {
     for (let i = 0; i < response.items.length; i++) {
       let item = response.items[i];
@@ -70,14 +77,14 @@
       document.getElementById('form-group').innerHTML += `<label for="description-input">Descripción: </label><br><input name="description" type="text" class="form-control" id="description-input" value="${bookDescription}"><br><br>`
       document.getElementById('form-group').innerHTML += `<label for="rating-input">Calificación: </label><br><input name="rating" type="text" class="form-control" id="rating-input" value="${bookRating}"><br><br>`
       document.getElementById('form-group').innerHTML += `<label for="category-input">Género: </label><br><input name="category" type="text" class="form-control" id="category-input" value="${bookCategory}"><br><br>`
-      document.getElementById('form-group').innerHTML += `<label for="category-input">Estado: </label><br><input name="state" type="text" class="form-control" id="state-input" value="Introducir Estado"><br><br>`
+      document.getElementById('form-group').innerHTML += `<label for="state-input">Estado: </label><br><input name="state" class="form-control" id="state-input"><br><br>`
       document.getElementById('form-group').innerHTML += `<img src="${bookImg}" alt="${bookTitle} front image"><br><br>`
 
       arr = [bookTitle, bookAuthor, bookDescription, bookRating, bookCategory, bookImg]
 
       return arr
     }
-    document.addEventListener("change", listenTitle)
+    document.getElementById('book-list').addEventListener("change", listenTitle)
 
   }
 
