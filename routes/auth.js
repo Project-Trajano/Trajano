@@ -1,5 +1,5 @@
 const express = require("express");
-const passport = require('passport');
+const passport = require("passport");
 const router = express.Router();
 const User = require("../models/User");
 
@@ -7,17 +7,26 @@ const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
 
-
-router.get("/login", (req, res, next) => {
-  res.render("auth/login", { "message": req.flash("error") });
+router.get("/access", (req, res, next) => {
+  res.render("auth/access");
 });
 
-router.post("/login", passport.authenticate("local", {
-  successRedirect: "/",
-  failureRedirect: "/auth/login",
-  failureFlash: true,
-  passReqToCallback: true
-}));
+router.get("/login", (req, res, next) => {
+  res.render("auth/login", { message: req.flash("error") });
+});
+
+router.post(
+  "/login",
+  passport.authenticate("local", {
+    successRedirect: "/users/user-dashboard",
+    failureRedirect: "/auth/login",
+    failureFlash: true,
+    passReqToCallback: true
+  }),
+  function(req, res) {
+    res.redirect("/");
+  }
+);
 
 router.get("/signup", (req, res, next) => {
   res.render("auth/signup");
@@ -45,13 +54,14 @@ router.post("/signup", (req, res, next) => {
       password: hashPass
     });
 
-    newUser.save()
-    .then(() => {
-      res.redirect("/");
-    })
-    .catch(err => {
-      res.render("auth/signup", { message: "Something went wrong" });
-    })
+    newUser
+      .save()
+      .then(() => {
+        res.redirect("/");
+      })
+      .catch(err => {
+        res.render("auth/signup", { message: "Something went wrong" });
+      });
   });
 });
 
