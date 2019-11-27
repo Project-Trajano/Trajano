@@ -36,7 +36,7 @@ window.onload = () => {
 
     function getPlaces() {
       axios
-        .get("http://localhost:3000/locationsData")
+        .get("https://trajano-project.herokuapp.com/locationsData")
         .then(response => {
           placePlaces(response.data);
         })
