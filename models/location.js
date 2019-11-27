@@ -13,14 +13,5 @@ const locationSchema = new Schema({
   }
 });
 
-// schemaName.index({lcoation: '2dsphere'})
-
 const Location = mongoose.model('Location', locationSchema);
 module.exports = Location;
-
-// "city": "Hong Kong", 
-// "name": "Plaza Hollywood", 
-// "country": "CN", 
-// "longitude": 114.20169067382812, 
-// "latitude": 22.340700149536133, 
-// "store_id": 1

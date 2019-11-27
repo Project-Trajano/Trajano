@@ -1,3 +1,12 @@
+
+<br>
+
+<form action="/books/:title" method="POST">
+<input type="text" name="title" placeholder="Buscar libro">
+<button type="submit" class="btn btn-dark">Buscar</button>
+</form>
+
+
 <h2>Panel de usuario: </h2>
 <p>Aquí podrás añadir tus libros a la colección de Trajano, gestionar tu perfil o elegir que te apetece</p>
 <p> leer y donde podrás encontrarlo.</p>
@@ -11,11 +20,22 @@
     <li>Fecha de nacimiento: {{birthDate}}</li>
     <li>Gender: {{gender}}</li>
   </ul>
-</div>
-<div>
   <a href="/users/user-profile">Editar Perfil</a>
-  <a href="/users/bookinfo">Colecctión de libros</a>
+  <br><br>
+
+  <h3>Tu colección: </h3>
+  <a href="/users/bookinfo">Colección de libros</a>
+  <br><br>
+
+  <h3>¿Qué te apetece leer hoy?</h3>
+  <a href="/books/randombook">Sugerencias</a>
+  <br><br>
+
+</div>
+
+<div>
   <a href="/auth/logout">Cerrar sesión</a>
 </div>
+
 <a href="/">Atras</a>
 </div>

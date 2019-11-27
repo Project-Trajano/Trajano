@@ -1,11 +1,26 @@
+{{#if booksFound.0.author}}
 <h2>Libro seleccionado</h2>
 <p>Aquí podrás elegir que te apetece leer.</p>
-<h3>{{title}}</h3>
-Autor: {{author}} | Género: {{genre}} | Calificación: {{rating}}
-<p>{{description}}</p>
+<h3>{{booksFound.0.title}}</h3>
+Autor: {{booksFound.0.author}} | Género: {{booksFound.0.genre}} | Calificación: {{booksFound.0.rating}}
+<p>{{booksFound.0.description}}</p>
 <hr>
 <h2>¿Donde encontrarlo?</h2>
-Localizacion: {{locationId}} | Estado: {{state}}
-<form method="POST" action="{{id}}/deletebook/">
-  <button>Reservar</button>
+{{#each booksFound}}
+Localizacion: {{locationId.name}}, {{locationId.city}} | Estado: {{state}}
+<form method="POST" action="/books/{{id}}/book-selected/">
+  <button type="submit">Reservar</button>
 </form>
+<br>
+{{/each}}
+{{else}}
+<h3>Tu libro no está todavía en Trajano, haz otra búsqueda!!</h3>
+{{/if}}
+<br>
+<div>
+  <div id="map"></div>
+</div>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBx2GmyouiTJKT1cnseLaV4I5LJDwp5oo8"></script>
+<script type="text/javascript" src="/javascripts/main.js"></script>

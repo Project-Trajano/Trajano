@@ -1,14 +1,18 @@
+
+
 window.onload = () => {
+
+  console.log(window.location.href)
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
-      function(position) {
+      function (position) {
         const center = {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         };
-        console.log("center: ", center);
+        // console.log("center: ", center);
       },
-      function() {
+      function () {
         console.log("Error in the geolocation service.");
       }
     );
@@ -17,11 +21,14 @@ window.onload = () => {
   }
 
   function startMap() {
-    const startlocation = { lat: 41.3977381, lng: 2.190471916 };
+    const startlocation = {
+      lat: 41.3977381,
+      lng: 2.190471916
+    };
     const markers = [];
 
     const map = new google.maps.Map(document.getElementById("map"), {
-      zoom: 12,
+      zoom: 7,
       center: startlocation
     });
 
@@ -36,8 +43,9 @@ window.onload = () => {
 
     function getPlaces() {
       axios
-        .get("http://localhost:3000/locationsData")
+        .get(window.location.href+"/map")
         .then(response => {
+          console.log(response.data)
           placePlaces(response.data);
         })
         .catch(error => {
@@ -45,11 +53,12 @@ window.onload = () => {
         });
     }
 
+
     function placePlaces(places) {
-      places.forEach(function(place) {
+      places.forEach(function (place) {
         const center = {
-          lat: place.latitude,
-          lng: place.longitude
+          lat: place.locationId.latitude,
+          lng: place.locationId.longitude
         };
         const pin = new google.maps.Marker({
           position: center,
@@ -64,7 +73,7 @@ window.onload = () => {
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
-        function(position) {
+        function (position) {
           const user_location = {
             lat: position.coords.latitude,
             lng: position.coords.longitude
@@ -81,7 +90,7 @@ window.onload = () => {
             title: "You are here."
           });
         },
-        function() {
+        function () {
           console.log("Error in the geolocation service.");
         }
       );

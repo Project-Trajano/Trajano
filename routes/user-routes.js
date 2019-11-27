@@ -4,7 +4,7 @@ const ensureLogin = require("connect-ensure-login");
 const User = require("../models/User");
 const multer = require("multer");
 const uploadCloud = require("../config/cloudinary.js");
-const upload = multer({ dest: "../public/uploads/" });
+const upload = multer({ dest: "../pulic/uploads/" });
 const Location = require('../models/location')
 const Book = require('../models/book')
 
@@ -64,9 +64,6 @@ router.post("/user-profile", (req, res) => {
   const phone = req.body.phone;
   const birthDate = req.body.birthDate;
   const gender = req.body.gender;
-  // console.log('///////////////////////////////////////')
-  // console.log(typeof(birthDate))
-  // console.log('///////////////////////////////////////')
 
   User.findByIdAndUpdate(req.body._id, {username, lastName, email, phone, birthDate, gender})
     .then(() => {
@@ -79,7 +76,7 @@ router.post("/user-profile", (req, res) => {
     });
 });
 
-/////////////////////////////////////////////////////////
+
 router.post("/uploadPhoto", uploadCloud.single("photo"), (req, res) => {
   const imgPath = req.file.url;
   const imgName = req.file.originalname;
@@ -130,7 +127,7 @@ router.post('/bookinfo', (req, res, next) => {
 })
 
 router.post('/bookinfo/save', (req, res, next) => {
-  const newBook = new Book({
+    const newBook = new Book({
     title: req.body.name,
     author: req.body.author,
     genre: req.body.category,
