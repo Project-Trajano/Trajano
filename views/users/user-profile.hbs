@@ -4,14 +4,13 @@
     <h3>Información pública:</h3>
     <form method="POST" action="/users/user-profile">
       <ul>
-        <li> Nombre: <input type="text" name="username" value="{{username}}">
-        </li>
-        <li> Apellidos: <input type="text" name="lastName" value="{{lastName}}">
-        </li>
-        <li> Email: <input type="text" name="email" value="{{email}}">
-        </li>
-        <li> Teléfono: <input type="text" name="phone" value="{{phone}}">
-        </li>
+        <li> Nombre: <input type="text" name="username" value="{{username}}"></li>
+        <li> Apellidos: <input type="text" name="lastName" value="{{lastName}}"></li>
+        <li> Email: <input type="text" name="email" value="{{email}}"></li>
+        <li> Teléfono: <input type="text" name="phone" value="{{phone}}"></li>
+        <li> Fecha de Nacimiento: <input type="date" name="birthDate" value="{{birthDate}}"></li>
+        <li> Género: <input type="radio" name="gender" value="M"> Masculino   <input type="radio" name="gender" value="F"> Femenino</li>
+
       </ul>
       <input type="hidden" name="_id" value="{{id}}">
       <input type="submit" value="Guardar">
@@ -20,9 +19,9 @@
   <div>
     <h3>Imagen de perfil:</h3>
     <form action="/users/uploadPhoto" method="POST" enctype="multipart/form-data">
-      <img src={{path}} alt="user-photo">
+      <img src={{imgPath}} id="profile-image" alt="user-photo">
       <input type="file" name="photo">
-      <input type="submit" value="Subir imagen">
+      <input type="submit" value="Subir Imagen">
     </form>
   </div>
 </div>

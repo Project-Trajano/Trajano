@@ -2,8 +2,10 @@ const express = require('express');
 const router = express.Router();
 const Location = require('../models/location')
 const Book = require('../models/book')
+// const User = require('../models/user')
 
 router.get('/bookinfo', (req, res, next) => {
+  const bookCounter = req.user.bookCounter;
   Location.find()
     .then(locationFound => {
       Book.find({
@@ -12,7 +14,8 @@ router.get('/bookinfo', (req, res, next) => {
         .then((bookFoundbyUser) => {
           res.render('bookSearchForm', {
             locationFound,
-            bookFoundbyUser
+            bookFoundbyUser,
+            bookCounter
           });
         })
     })
@@ -50,8 +53,14 @@ router.post('/bookinfo/save', (req, res, next) => {
     bookImage: {}
   })
   newBook.save()
-    .then(() => {
-      res.redirect('/bookinfo')
+    // .then(() => {
+    //   const bookCounter = req.user.bookCounter + 1
+    //   User.findByIdAndUpdate(req.user._id, {
+    //       bookCounter
+    //     })
+        .then(() => {
+          res.redirect('/bookinfo')
+        // })
     })
     .catch((err) => {
       console.log(err)

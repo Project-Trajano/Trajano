@@ -5,6 +5,8 @@ const User = require("../models/User");
 const multer = require("multer");
 const uploadCloud = require("../config/cloudinary.js");
 const upload = multer({ dest: "../public/uploads/" });
+const Location = require('../models/location')
+const Book = require('../models/book')
 
 router.get(
   "/user-dashboard/",
@@ -56,8 +58,14 @@ router.get(
 );
 
 router.post("/user-profile", (req, res) => {
-  // const imgPath = req.file.url;
-  User.findByIdAndUpdate(req.body._id, req.body)
+  const username = req.body.username;
+  const lastName = req.body.lastName;
+  const email = req.body.email;
+  const phone = req.body.phone;
+  const birthDate = req.body.birthDate;
+  const gender = req.body.gender;
+  
+  User.findByIdAndUpdate(req.body._id, {username, lastName, email, phone, birthDate, gender})
     .then(() => {
       // console.log(imgPath);
       res.redirect("user-dashboard");
@@ -68,10 +76,16 @@ router.post("/user-profile", (req, res) => {
     });
 });
 
+
+//////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////
 router.post("/uploadPhoto", uploadCloud.single("photo"), (req, res) => {
-  User.findByIdAndUpdate(req.body._id, req.body)
+  const imgPath = req.file.url;
+  const imgName = req.file.originalname;
+  console.log(req.user)
+  User.findByIdAndUpdate(req.user._id, {imgPath, imgName})
     .then(() => {
-      console.log(req.file.url);
       res.redirect("user-dashboard");
     })
     .catch(err => {
@@ -79,5 +93,71 @@ router.post("/uploadPhoto", uploadCloud.single("photo"), (req, res) => {
       next();
     });
 });
+
+router.get('/bookinfo', (req, res, next) => {
+  const bookCounter = req.user.bookCounter;
+  Location.find()
+    .then(locationFound => {
+      Book.find({
+          userId: req.user._id
+        })
+        .then((bookFoundbyUser) => {
+          res.render('bookSearchForm', {
+            locationFound,
+            bookFoundbyUser,
+            bookCounter
+          });
+        })
+    })
+
+});
+
+router.post('/bookinfo', (req, res, next) => {
+  const searchInput = (req.body.title).split(' ').join('+');
+  Location.find()
+    .then(locationFound => {
+      Book.find({
+          userId: req.user._id
+        })
+        .then((bookFoundbyUser) => {
+          res.render('bookSearchForm', {
+            searchInput,
+            locationFound,
+            bookFoundbyUser
+          })
+        })
+    })
+})
+
+router.post('/bookinfo/save', (req, res, next) => {
+  const newBook = new Book({
+    title: req.body.name,
+    author: req.body.author,
+    genre: req.body.category,
+    rating: req.body.rating,
+    state: req.body.state,
+    description: req.body.description,
+    locationId: req.body.location,
+    userId: req.user._id,
+    bookImage: {}
+  })
+  newBook.save()
+    .then(() => {
+      const bookCounter = req.user.bookCounter + 1
+      User.findByIdAndUpdate(req.user._id, {
+          bookCounter
+        })
+        .then(() => {
+          res.redirect('/users/bookinfo')
+        })
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+})
+
+
+
+
 
 module.exports = router;
