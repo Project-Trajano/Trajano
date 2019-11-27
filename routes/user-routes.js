@@ -4,7 +4,7 @@ const ensureLogin = require("connect-ensure-login");
 const User = require("../models/user");
 const multer = require("multer");
 const uploadCloud = require("../config/cloudinary.js");
-const upload = multer({ dest: "../public/uploads/" });
+// const upload = multer({ dest: "../public/uploads/" });
 const Location = require('../models/location')
 const Book = require('../models/book')
 
