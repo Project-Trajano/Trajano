@@ -31,7 +31,7 @@ router.get(
     let userId = req.user._id;
     User.findById(userId)
       .then(user => {
-        console.log(user);
+        console.log(user)
         res.render("users/user-profile", user);
       })
       .catch(err => {
@@ -64,7 +64,10 @@ router.post("/user-profile", (req, res) => {
   const phone = req.body.phone;
   const birthDate = req.body.birthDate;
   const gender = req.body.gender;
-  
+  // console.log('///////////////////////////////////////')
+  // console.log(typeof(birthDate))
+  // console.log('///////////////////////////////////////')
+
   User.findByIdAndUpdate(req.body._id, {username, lastName, email, phone, birthDate, gender})
     .then(() => {
       // console.log(imgPath);
@@ -75,9 +78,6 @@ router.post("/user-profile", (req, res) => {
       next();
     });
 });
-
-
-//////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////
 router.post("/uploadPhoto", uploadCloud.single("photo"), (req, res) => {

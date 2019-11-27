@@ -8,8 +8,8 @@
         <li> Apellidos: <input type="text" name="lastName" value="{{lastName}}"></li>
         <li> Email: <input type="text" name="email" value="{{email}}"></li>
         <li> Teléfono: <input type="text" name="phone" value="{{phone}}"></li>
-        <li> Fecha de Nacimiento: <input type="date" name="birthDate" value="{{birthDate}}"></li>
-        <li> Género: <input type="radio" name="gender" value="M"> Masculino   <input type="radio" name="gender" value="F"> Femenino</li>
+        <li> Fecha de Nacimiento: <input type="date" name="birthDate" id="birthDate" value="1982-06-01"></li>
+        <li> Género: <input type="radio" name="gender" value="M" checked="checked"> Masculino   <input type="radio" name="gender" value="F"> Femenino</li>
 
       </ul>
       <input type="hidden" name="_id" value="{{id}}">
@@ -26,3 +26,5 @@
   </div>
 </div>
 <p><a href="/users/user-dashboard">Atras</a></p>
+
+{{!-- <script>document.getElementById('birthDate').value = "birthDate"</script> --}}
