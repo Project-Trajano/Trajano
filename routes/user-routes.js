@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const ensureLogin = require("connect-ensure-login");
-const User = require("../models/User");
+const User = require("../models/user");
 const multer = require("multer");
 const uploadCloud = require("../config/cloudinary.js");
 const upload = multer({ dest: "../public/uploads/" });
