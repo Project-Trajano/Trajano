@@ -3,13 +3,16 @@
   {{#each bookFoundbyUser}}
   <li><strong>Título: </strong>{{title}} --> <strong>Autor: </strong>{{author}} --> <strong>Estado: </strong>{{state}}</li>
   <strong></strong>
+  {{else}}
+  <p>No has contribuido ningún libro a Trajano todavía.</p>
   {{/each}}
 </ul>
-<br><br>
 
+<p>Tu saldo en Trajano es igual a: {{bookCounter}}</p>
+<br><br>
 <h2>Añadir Nuevo Libro a Trajano</h2>
 <br>
-<form action="/bookinfo" method="POST">
+<form action="/users/bookinfo" method="POST">
   <label for="title-input">Busca tu libro</label>
   <input name="title" type="text" placeholder="Introduce el título de tu libro">
   <button type="submit" class="btn btn-dark">Enviar información</button>
@@ -21,7 +24,7 @@
   </select>
 </form>
 <br>
-<form action="/bookinfo/save" method="POST">
+<form action="/users/bookinfo/save" method="POST">
   <div id="form-group"></div>
   <label for="location-list">Localización:</label><br>
   <select name="location" class="form-control" id="location-list">
