@@ -23,7 +23,8 @@ const userSchema = new Schema({
   imgPath: {
     type: String,
     default: "/images/default.png"
-  }
+  },
+  googleID: String
 });
 
 const User = mongoose.model("User", userSchema);

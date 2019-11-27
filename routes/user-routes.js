@@ -1,10 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const ensureLogin = require("connect-ensure-login");
-const User = require("../models/User");
+const User = require("../models/user");
 const multer = require("multer");
 const uploadCloud = require("../config/cloudinary.js");
+<<<<<<< HEAD
 const upload = multer({ dest: "../pulic/uploads/" });
+=======
+// const upload = multer({ dest: "../public/uploads/" });
+>>>>>>> 9c26de1a5987290346980a44b8f80face7f5e275
 const Location = require('../models/location')
 const Book = require('../models/book')
 

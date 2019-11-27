@@ -8,13 +8,15 @@ const hbs = require("hbs");
 const mongoose = require("mongoose");
 const logger = require("morgan");
 const path = require("path");
-
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
 const flash = require("connect-flash");
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const passport = require("passport");
+const User = require("./models/user");
 
 mongoose
-  .connect("mongodb://localhost/Trajano", { useNewUrlParser: true })
+  .connect(process.env.DB, { useNewUrlParser: true })
   .then(x => {
     console.log(
       `Connected to Mongo! Database name: "${x.connections[0].name}"`
@@ -73,6 +75,43 @@ app.use(
     saveUninitialized: true,
     store: new MongoStore({ mongooseConnection: mongoose.connection })
   })
+);
+
+// Google login
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: process.env.CLID,
+      clientSecret: process.env.CLS,
+      callbackURL: "/auth/google/callback"
+    },
+    (accessToken, refreshToken, profile, done) => {
+      console.log("Google account details:", profile);
+
+      User.findOne({ googleID: profile.id })
+        .then(user => {
+          console.log("the user exist", user);
+          if (user) {
+            done(null, user);
+            return;
+          }
+
+          User.create({
+            googleID: profile.id,
+            username: profile.name.givenName,
+            lastName: profile.name.familyName,
+            email: profile._json.email,
+            imgPath: profile._json.picture,
+            password: "***"
+          })
+            .then(newUser => {
+              done(null, newUser);
+            })
+            .catch(err => done(err));
+        })
+        .catch(err => done(err));
+    }
+  )
 );
 
 app.use(flash());

@@ -1,9 +1,7 @@
 const express = require("express");
 const passport = require("passport");
 const router = express.Router();
-const User = require("../models/User");
-
-// Bcrypt to encrypt passwords
+const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
 
@@ -64,6 +62,22 @@ router.post("/signup", (req, res, next) => {
       });
   });
 });
+
+router.get(
+  "/google",
+  passport.authenticate("google", {
+    scope: [
+      "https://www.googleapis.com/auth/userinfo.profile",
+      "https://www.googleapis.com/auth/userinfo.email"
+    ]
+  })
+);
+
+router.get("/google/callback", passport.authenticate("google", {
+    successRedirect: "/users/user-dashboard",
+    failureRedirect: "/auth/login" // here you would redirect to the login page using traditional login approach
+  })
+);
 
 router.get("/logout", (req, res) => {
   req.logout();
