@@ -1,27 +1,32 @@
-<h2>Login</h2>
+<div class="full-screen-container">
+  <section class="login-main login-main-spec">
 
-<form action="/auth/login" method="POST" id="form-container">
-  <label for="username">Username</label>
-  <input id="username" type="text" name="username" placeholder="JonSnow">
+    <section class="login-top-section">
+      <a href="/"><img class="img-icon-login" src="../images/Trajano-icon" alt="Trajano icon"></a>
+      <h2 class="login-text">Inicia Sesión</h2>
+      <a href="/"><img class="img-icon" src="../images/close" alt="Trajano icon"></a>
+    </section>
 
-  <br><br>
+    <form action="/auth/login" method="POST" class="form-container">
+      <label for="username">Username</label>
+      <input id="username" type="text" name="username" placeholder="JonSnow">
+      <label for="password">Password</label>
+      <input id="password" type="password" name="password" placeholder="Your password">
+      {{#if message }}
+      <div class="error-message">{{ message }}</div>
+      {{/if}}
+      <button>Login</button>
+    </form>
 
-  <label for="password">Password</label>
-  <input id="password" type="password" name="password" placeholder="Your password">
-  <br>
-  {{#if message }}
-  <div class="error-message">{{ message }}</div>
-  {{/if}}
+    <section class="login-bottom-section">
+      <p class="">
+        Aun no tienes una cuenta?
+      </p>
+      <a href="/auth/signup">Registrate</a>
+      <a class="google-login" href="/auth/google">
+        <p id="google-login-text">Entrar con Google</p>
+      </a>
+    </section>
+  </section>
 
-  <button>Login</button>
-
-  <p class="account-message">
-    Aun no tienes una cuenta?
-    <a href="/auth/signup">Registrate</a>
-  </p>
-
-  <div>
-    <a href="/auth/google">Login With Google</a>
-  </div>
-  <a href="/auth/access">Atrás</a>
-</form>
+</div>

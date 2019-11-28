@@ -1,7 +1,8 @@
 <h2>Tus Contribuciones a Trajano</h2>
 <ul id="content">
   {{#each bookFoundbyUser}}
-  <li><strong>Título: </strong>{{title}} --> <strong>Autor: </strong>{{author}} --> <strong>Estado: </strong>{{state}}</li>
+  <li><strong>Título: </strong>{{title}} --> <strong>Autor: </strong>{{author}} --> <strong>Estado: </strong>{{state}}
+  </li>
   <strong></strong>
   {{else}}
   <p>No has contribuido ningún libro a Trajano todavía.</p>
@@ -12,18 +13,29 @@
 <br><br>
 <h2>Añadir Nuevo Libro a Trajano</h2>
 <br>
-<form action="/users/bookinfo" method="POST">
+
+<form action="/users/bookinfo" method="POST" autocomplete="off">
+  <label for="title-input">Busca tu libro</label>
+  <button type="submit" class="btn btn-dark">Enviar información</button>
+  <br>
+  <input name="bookTitle" list="autocompleter">
+  <datalist id="autocompleter">
+  </datalist>
+  <br><br>
+</form>
+
+{{!-- <form action="/users/bookinfo" method="POST">
   <label for="title-input">Busca tu libro</label>
   <input name="title" type="text" placeholder="Introduce el título de tu libro">
   <button type="submit" class="btn btn-dark">Enviar información</button>
   <br>
-  {{!-- <ul id="autocompleter"> --}}
-  </ul>
-  <select name="book" id="book-list">
+
+  <select name="book" id="book-list" class="autocompleter">
     <option>Seleccionar</option>
   </select>
 </form>
-<br>
+<br> --}}
+
 <form action="/users/bookinfo/save" method="POST">
   <div id="form-group"></div>
   <label for="location-list">Localización:</label><br>
@@ -38,9 +50,7 @@
 </form>
 <br><br>
 
-
-
-<script>
+{{!-- <script>
   let arr;
   let bookTitle = "Título de tu Libro";
   let bookAuthor = "Autor";
@@ -91,7 +101,92 @@
 
   }
 
+</script> --}}
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+
+  let arr;
+  let bookTitle = "Título de tu Libro";
+  let bookAuthor = "Autor";
+  let bookDescription = "Descripción"
+  let bookRating = "Rating"
+  let bookCategory = "Categoría"
+  let bookImg
+
+  document.getElementById('form-group').innerHTML += `<label for="name-input">Título: </label><br><input name="name" type="text" class="form-control" id="name-input" value="${bookTitle}"><br><br>`
+  document.getElementById('form-group').innerHTML += `<label for="author-input">Autor: </label><br><input name="author" type="text" class="form-control" id="author-input" value="${bookAuthor}"><br><br>`
+  document.getElementById('form-group').innerHTML += `<label for="description-input">Descripción: </label><br><input name="description" type="text" class="form-control" id="description-input" value="${bookDescription}"><br><br>`
+  document.getElementById('form-group').innerHTML += `<label for="rating-input">Calificación: </label><br><input name="rating" type="text" class="form-control" id="rating-input" value="${bookRating}"><br><br>`
+  document.getElementById('form-group').innerHTML += `<label for="category-input">Género: </label><br><input name="category" type="text" class="form-control" id="category-input" value="${bookCategory}"><br><br>`
+  document.getElementById('form-group').innerHTML += `<label for="state-input">Estado: </label><br><input name="state" type="number" class="form-control" id="state-input" placeholder="Introducir Estado"><br><br>`
+  document.getElementById('form-group').innerHTML += `<img src="../images/book-placeholder.png" alt="${bookTitle} front image"><br><br>`
+
+  let booksFound = []
+  let bookNames = []
+
+  // Returns a function, that, as long as it continues to be invoked, will not
+  // be triggered. The function will be called after it stops being called for
+  // N milliseconds. If `immediate` is passed, trigger the function on the
+  // leading edge, instead of the trailing.
+  function debounce(func, wait, immediate) {
+    var timeout;
+    return function () {
+      var context = this, args = arguments;
+      var later = function () {
+        timeout = null;
+        if (!immediate) func.apply(context, args);
+      };
+      var callNow = immediate && !timeout;
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+      if (callNow) func.apply(context, args);
+    };
+  };
+
+  var myEfficientFn = debounce(function (e) {
+    if (e.target.value.length === 0) {
+      document.getElementById("autocompleter").innerHTML = ""
+
+      return
+    };
+    axios.get(`https://www.googleapis.com/books/v1/volumes?q=${e.target.value}&orderBy=relevance`)
+      .then(books => {
+        booksFound = books.data.items.map(book => book.volumeInfo)
+        bookNames = books.data.items.map(book => book.volumeInfo.title)
+        // DOM Population with bookNames
+        bookNames = bookNames.map(bookName => `<option>${bookName}</option>`)
+        document.getElementById("autocompleter").innerHTML = bookNames.join()
+        return (books.data.items)
+      })
+  }, 1000);
+
+
+  document.querySelector("input[name=bookTitle]").onkeyup = myEfficientFn
+
+
+
+  listenTitle = function () {
+    document.getElementById("form-group").innerHTML = "";
+
+    document.getElementById('form-group').innerHTML += `<label for="name-input">Título: </label><br><input name="name" type="text" class="form-control" id="name-input" value="${booksFound[0].title}"><br><br>`
+    document.getElementById('form-group').innerHTML += `<label for="author-input">Autor: </label><br><input name="author" type="text" class="form-control" id="author-input" value="${booksFound[0].author}"><br><br>`
+    document.getElementById('form-group').innerHTML += `<label for="description-input">Descripción: </label><br><input name="description" type="text" class="form-control" id="description-input" value="${booksFound[0].description}"><br><br>`
+    document.getElementById('form-group').innerHTML += `<label for="rating-input">Calificación: </label><br><input name="rating" type="text" class="form-control" id="rating-input" value="${booksFound[0].rating}"><br><br>`
+    document.getElementById('form-group').innerHTML += `<label for="category-input">Género: </label><br><input name="category" type="text" class="form-control" id="category-input" value="${booksFound[0].category}"><br><br>`
+    document.getElementById('form-group').innerHTML += `<label for="state-input">Estado: </label><br><input name="state" class="form-control" id="state-input"><br><br>`
+    document.getElementById('form-group').innerHTML += `<img src="${booksFound[0].imageLinks.thumbnail}" alt="${booksFound[0].title} front image"><br><br>`
+
+    arr = [bookTitle, bookAuthor, bookDescription, bookRating, bookCategory, bookImg]
+
+    return arr
+  }
+  document.querySelector("input[name=bookTitle]").addEventListener("change", listenTitle)
+
+
 </script>
-<script
+
+
+{{!-- <script
   src="https://www.googleapis.com/books/v1/volumes?q={{searchInput}}&orderBy=relevance&callback=handleResponse"></script>
-</div>
+</div> --}}

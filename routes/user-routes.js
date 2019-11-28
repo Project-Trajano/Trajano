@@ -5,22 +5,27 @@ const User = require("../models/user");
 const multer = require("multer");
 const uploadCloud = require("../config/cloudinary.js");
 // const upload = multer({ dest: "../public/uploads/" });
-const Location = require("../models/location");
-const Book = require("../models/book");
+const Location = require('../models/location')
+const Book = require('../models/book')
 
 router.get(
   "/user-dashboard/",
   ensureLogin.ensureLoggedIn("/auth/login"),
   (req, res, next) => {
     let userId = req.user._id;
-    User.find({ _id: userId })
-      .then(user => {
-        res.render("users/user-dashboard", user[0]);
+    Book.find({userId: userId})
+      .then((booksFoundbyUserId) =>{
+        User.find({ _id: userId })
+        .then(user => {
+          console.log(booksFoundbyUserId)
+          res.render("users/user-dashboard", {user,booksFoundbyUserId});
+        })
+        .catch(err => {
+          console.log(err);
+          next();
+        });
       })
-      .catch(err => {
-        console.log(err);
-        next();
-      });
+    
   }
 );
 
@@ -155,3 +160,4 @@ router.post("/bookinfo/save", (req, res, next) => {
 });
 
 module.exports = router;
+

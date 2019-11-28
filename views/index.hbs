@@ -1,10 +1,44 @@
-<h1>{{title}}</h1>
-<p>Home page</p>
+<nav class="nav-bar">
+  <div class="nav-left-section">
+    <a href="/"><img class="img-icon" src="../images/Trajano-icon" alt="Trajano icon"></a>
+    <div>
+      <form id="dynamic-form" action="/books/" method="POST" autocomplete="off">
+        <input id="dynamic-input" type="text" name="title" placeholder="Buscar libro">
+        <button type="submit" class="btn btn-dark">Buscar</button>
+      </form>
+    </div>
+  </div>
+  <a href="/auth/access"><button class="btn btn-yellow btn-register">Regístrate o Inicia Sesión</button></a>
+</nav>
+
+<section>
+  <h1 class="h1-home">Trajano, tu plataforma de intercambio de libros de los de siempre</h1>
+</section>
+<section class="decorated-section">
+  <h2 class="h2-home">Todas estas opciones cerca de ti</h2>
+  <div>
+    <div id="map"></div>
+  </div>
+</section>
+
 <div>
   <div id="map"></div>
 </div>
+
+
+
+
+<script>
+  const inputDOMEl = document.querySelector('#dynamic-input')
+  const formDOMEl = document.querySelector('#dynamic-form')
+  changePath = function () {
+    return formDOMEl.setAttribute('action', `/books/${inputDOMEl.value.split(' ').join('%20')}`)
+  }
+  inputDOMEl.addEventListener('blur', changePath)
+</script>
+
+
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA-Iqb55QsurOHrKU_FFyqzRqZ3EMSM0Cg
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA-Iqb55QsurOHrKU_FFyqzRqZ3EMSM0Cg
 &callback=initMap"></script>
 <script type="text/javascript" src="/javascripts/main.js"></script>
