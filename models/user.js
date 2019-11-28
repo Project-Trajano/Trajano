@@ -11,7 +11,10 @@ const userSchema = new Schema({
     required: true
   },
   lastName: String,
-  email: String,
+  email: {
+    type: String,
+    required: true
+  },
   gender: String,
   phone: Number,
   birthDate: Date,
@@ -24,7 +27,13 @@ const userSchema = new Schema({
     type: String,
     default: "/images/default.png"
   },
-  googleID: String
+  googleID: String,
+  confirmationCode: { type: String, unique: true },
+  status: {
+    type: String,
+    enum: ["Pending Confirmation", "Active"],
+    default: "Pending Confirmation"
+  }
 });
 
 const User = mongoose.model("User", userSchema);

@@ -4,13 +4,9 @@ const ensureLogin = require("connect-ensure-login");
 const User = require("../models/user");
 const multer = require("multer");
 const uploadCloud = require("../config/cloudinary.js");
-<<<<<<< HEAD
-const upload = multer({ dest: "../pulic/uploads/" });
-=======
 // const upload = multer({ dest: "../public/uploads/" });
->>>>>>> 9c26de1a5987290346980a44b8f80face7f5e275
-const Location = require('../models/location')
-const Book = require('../models/book')
+const Location = require("../models/location");
+const Book = require("../models/book");
 
 router.get(
   "/user-dashboard/",
@@ -35,7 +31,7 @@ router.get(
     let userId = req.user._id;
     User.findById(userId)
       .then(user => {
-        console.log(user)
+        console.log(user);
         res.render("users/user-profile", user);
       })
       .catch(err => {
@@ -69,7 +65,14 @@ router.post("/user-profile", (req, res) => {
   const birthDate = req.body.birthDate;
   const gender = req.body.gender;
 
-  User.findByIdAndUpdate(req.body._id, {username, lastName, email, phone, birthDate, gender})
+  User.findByIdAndUpdate(req.body._id, {
+    username,
+    lastName,
+    email,
+    phone,
+    birthDate,
+    gender
+  })
     .then(() => {
       // console.log(imgPath);
       res.redirect("user-dashboard");
@@ -80,12 +83,11 @@ router.post("/user-profile", (req, res) => {
     });
 });
 
-
 router.post("/uploadPhoto", uploadCloud.single("photo"), (req, res) => {
   const imgPath = req.file.url;
   const imgName = req.file.originalname;
-  console.log(req.user)
-  User.findByIdAndUpdate(req.user._id, {imgPath, imgName})
+  console.log(req.user);
+  User.findByIdAndUpdate(req.user._id, { imgPath, imgName })
     .then(() => {
       res.redirect("user-dashboard");
     })
@@ -95,43 +97,38 @@ router.post("/uploadPhoto", uploadCloud.single("photo"), (req, res) => {
     });
 });
 
-router.get('/bookinfo', (req, res, next) => {
+router.get("/bookinfo", (req, res, next) => {
   const bookCounter = req.user.bookCounter;
-  Location.find()
-    .then(locationFound => {
-      Book.find({
-          userId: req.user._id
-        })
-        .then((bookFoundbyUser) => {
-          res.render('bookSearchForm', {
-            locationFound,
-            bookFoundbyUser,
-            bookCounter
-          });
-        })
-    })
-
+  Location.find().then(locationFound => {
+    Book.find({
+      userId: req.user._id
+    }).then(bookFoundbyUser => {
+      res.render("bookSearchForm", {
+        locationFound,
+        bookFoundbyUser,
+        bookCounter
+      });
+    });
+  });
 });
 
-router.post('/bookinfo', (req, res, next) => {
-  const searchInput = (req.body.title).split(' ').join('+');
-  Location.find()
-    .then(locationFound => {
-      Book.find({
-          userId: req.user._id
-        })
-        .then((bookFoundbyUser) => {
-          res.render('bookSearchForm', {
-            searchInput,
-            locationFound,
-            bookFoundbyUser
-          })
-        })
-    })
-})
+router.post("/bookinfo", (req, res, next) => {
+  const searchInput = req.body.title.split(" ").join("+");
+  Location.find().then(locationFound => {
+    Book.find({
+      userId: req.user._id
+    }).then(bookFoundbyUser => {
+      res.render("bookSearchForm", {
+        searchInput,
+        locationFound,
+        bookFoundbyUser
+      });
+    });
+  });
+});
 
-router.post('/bookinfo/save', (req, res, next) => {
-    const newBook = new Book({
+router.post("/bookinfo/save", (req, res, next) => {
+  const newBook = new Book({
     title: req.body.name,
     author: req.body.author,
     genre: req.body.category,
@@ -141,24 +138,20 @@ router.post('/bookinfo/save', (req, res, next) => {
     locationId: req.body.location,
     userId: req.user._id,
     bookImage: {}
-  })
-  newBook.save()
+  });
+  newBook
+    .save()
     .then(() => {
-      const bookCounter = req.user.bookCounter + 1
+      const bookCounter = req.user.bookCounter + 1;
       User.findByIdAndUpdate(req.user._id, {
-          bookCounter
-        })
-        .then(() => {
-          res.redirect('/users/bookinfo')
-        })
+        bookCounter
+      }).then(() => {
+        res.redirect("/users/bookinfo");
+      });
     })
-    .catch((err) => {
-      console.log(err)
-    })
-})
-
-
-
-
+    .catch(err => {
+      console.log(err);
+    });
+});
 
 module.exports = router;

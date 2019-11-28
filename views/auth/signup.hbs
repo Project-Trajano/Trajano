@@ -1,24 +1,16 @@
-<h2>Regístrate en Trajano</h2>
-
-<form action="/auth/signup" method="POST" id="form-container">
-  <label for="username">Nombre: </label>
-  <input id="username" type="text" name="username" placeholder="">
-
-  <br><br>
-
-  <label for="password">Contraseña: </label>
-  <input id="password" type="password" name="password" placeholder="">
-  <br>
-  {{#if message }}
-  <div class="error-message">{{ message }}</div>
-  {{/if}}
-
-  <br><br>
-
-  <button>Crear nueva cuenta</button>
-
-  <p>Ya tienes una cuenta?<a href="/auth/login">Login</a></p>
-
-  <p> <a href="/auth/access">Atrás</a>
-  </p>
-</form>
+<div>
+  <h2>Regístrate en Trajano</h2>
+  <form action="/auth/signup" method="POST" id="form-container">
+    <ul>
+      <li>Nombre: <input id="username" type="text" name="username" placeholder=""></li>
+      <li>Contraseña: <input id="password" type="password" name="password" placeholder=""></li>
+      <li>Email: <input id="enail" type="text" name="email" placeholder=""></li>
+    </ul>
+    {{#if message }}
+    <div class="error-message">{{ message }}</div>
+    {{/if}}
+    <button>Crear nueva cuenta</button>
+    <p>Ya tienes una cuenta?<a href="/auth/login"> Login</a></p>
+    <p> <a href="/auth/access">Atrás</a></p>
+  </form>
+</div>

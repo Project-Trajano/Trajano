@@ -1,32 +1,30 @@
 const express = require("express");
 const router = express.Router();
 const Books = require("../models/book");
-const User = require("../models/User")
-const Location = require("../models/location")
+const User = require("../models/user");
+const Location = require("../models/location");
 
 router.get("/randombook", (req, res, next) => {
   Books.find()
     .then(book => {
-      res.render("books/randombook", {
-        book
-      });
+      res.render("books/genreselected");
+      // res.render("books/randombook", {
+      //   book
+      // });
     })
     .catch(err => {
       console.log(err);
       next();
     });
 });
-
-
-
 
 router.get("/:title", (req, res, next) => {
   Books.find({
-      title: req.params.title
-    })
-    .populate('locationId')
+    title: req.params.title
+  })
+    .populate("locationId")
     .then(booksFound => {
-      res.render("books/bookselect", {booksFound});
+      res.render("books/bookselect", { booksFound });
     })
     .catch(err => {
       console.log(err);
@@ -34,44 +32,41 @@ router.get("/:title", (req, res, next) => {
     });
 });
 
-
-router.get("/:title/map",(req,res,next) => {
+router.get("/:title/map", (req, res, next) => {
   Books.find({
     title: req.params.title
   })
-  .populate('locationId')
-  .then(booksFound => {
-    res.json(booksFound)
-  })
-})
+    .populate("locationId")
+    .then(booksFound => {
+      res.json(booksFound);
+    });
+});
 
 router.post("/:title", (req, res, next) => {
-  
   Books.find({
-      title: req.body.title
-    })
+    title: req.body.title
+  })
     .then(booksFound => {
       res.render("books/bookselect", {
         booksFound
       });
     })
     .catch(err => {
-      alert('El libro que buscas no está en Trajano todavía')
+      alert("El libro que buscas no está en Trajano todavía");
       console.log(err);
       next();
     });
 });
 
+router.post("/:id/book-selected", (req, res, next) => {
+  const bookCounter = req.user.bookCounter - 1;
+  Books.findByIdAndDelete(req.params.id).then(() => {
+    User.findByIdAndUpdate(req.user._id, { bookCounter }).then(() => {
+      res.redirect("/users/bookinfo");
+    });
+  });
+});
 
-router.post('/:id/book-selected', (req, res, next) => {
-  const bookCounter = req.user.bookCounter - 1
-  Books.findByIdAndDelete(req.params.id)
-.then(() => {
-  User.findByIdAndUpdate(req.user._id, {bookCounter})
-  .then(() => {
-    res.redirect('/users/bookinfo')
-})
-})
-})
+
 
 module.exports = router;

@@ -1,9 +1,9 @@
-<h2>¿Te apetece leer otro libro?</h2>
-<p>Nuestras sugerencias para ti</p>
 <div>
+  <h2>¿Te apetece leer otro libro?</h2>
+  <h3>Nuestras sugerencias para ti: </h3>
   {{#each book}}
-  <h3>{{title}}</h3>
-  Autor: {{author}} | Género: {{genre}} | Calificación: {{rating}} |
+  <h4>{{title}}</h4>
+  Autor: {{author}} | Género: <a href="/randombook/{{genre}}">{{genre}}</a>| Calificación: {{rating}} |
   <a href="/books/{{title}}">Seleccionar</a>
   {{/each}}
 </div>
