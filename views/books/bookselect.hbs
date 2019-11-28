@@ -8,7 +8,7 @@ Autor: {{booksFound.0.author}} | Género: {{booksFound.0.genre}} | Calificación
 <h2>¿Donde encontrarlo?</h2>
 {{#each booksFound}}
 Localizacion: {{locationId.name}}, {{locationId.city}} | Estado: {{state}}
-<form method="POST" action="/books/{{id}}/book-selected/">
+<form method="POST" action="/books/{{id}}/book-selected/" autocomplete="off">
   <button type="submit">Reservar</button>
 </form>
 <br>

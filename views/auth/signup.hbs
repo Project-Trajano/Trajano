@@ -1,16 +1,35 @@
+
+<div class="full-screen-container">
+  <section class="login-main login-main-spec">
+
+<section class="login-top-section">
+      <a href="/"><img class="img-icon-login" src="../images/Trajano-icon" alt="Trajano icon"></a>
+      <h2 class="login-text">Regístrate en Trajano</h2>
+      <a href="/"><img class="img-icon" src="../images/close" alt="Trajano icon"></a>
+    </section>
+
+
+
 <div>
-  <h2>Regístrate en Trajano</h2>
-  <form action="/auth/signup" method="POST" id="form-container">
+  <form action="/auth/signup" method="POST" id="form-container" autocomplete="off" class="form-container">
     <ul>
-      <li>Nombre: <input id="username" type="text" name="username" placeholder=""></li>
-      <li>Contraseña: <input id="password" type="password" name="password" placeholder=""></li>
-      <li>Email: <input id="enail" type="text" name="email" placeholder=""></li>
+      <li><input class="input username-input" id="username" type="text" name="username" placeholder="Nombre"></li>
+      <li><input  class="input username-input"id="password" type="password" name="password" placeholder="Contraseña"></li>
+      <li><input class="input username-input"id="enail" type="text" name="email" placeholder="Correo electrónico"></li>
     </ul>
     {{#if message }}
     <div class="error-message">{{ message }}</div>
     {{/if}}
-    <button>Crear nueva cuenta</button>
-    <p>Ya tienes una cuenta?<a href="/auth/login"> Login</a></p>
-    <p> <a href="/auth/access">Atrás</a></p>
+    <button class="btn login-btn">Crear nueva cuenta</button>
+    
+    <section class="login-bottom-section">
+      <p>Ya tienes una cuenta?</p>
+      <a href="/auth/login"> Login</a>
+    </section>
+    
   </form>
+</div>
+
+  </section>
+
 </div>

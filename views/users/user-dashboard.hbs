@@ -1,16 +1,26 @@
+<nav class="nav-logged-user">
 
-<br>
-<form id="dynamic-form" action="/books/" method="POST">
-<input id="dynamic-input" type="text" name="title" placeholder="Buscar libro">
-<button type="submit" class="btn btn-dark">Buscar</button>
-</form>
+  <nav class="nav-left-section">
+    <a href="/"><img class="img-icon-ui" src="../images/Trajano-icon" alt="Trajano icon"></a>
+    <form id="dynamic-form align-flex" action="/books/" method="POST" autocomplete="off">
+      <input id="dynamic-input" type="text" name="title" placeholder="Buscar libro">
+      <button type="submit" class="btn btn-dark">Buscar</button>
+    </form>
+  </nav>
 
 
-<h2>Panel de usuario: </h2>
-<p>Aquí podrás añadir tus libros a la colección de Trajano, gestionar tu perfil o elegir que te apetece</p>
-<p> leer y donde podrás encontrarlo.</p>
-<div>
-  <h3>Tu perfil: </h3>
+  <a class="add-book" href="/users/bookinfo">Añadir libro</a>
+</nav>
+
+
+<section class="section-logged section-one">
+  <h2>Panel de usuario: </h2>
+  <p>Aquí podrás añadir tus libros a la colección de Trajano, gestionar tu perfil o elegir que te apetece leer y donde
+    podrás encontrarlo.</p>
+</section>
+
+<section class="section-logged section-two">
+<h3>Tu perfil: </h3>
   <ul>
     <li>Nombre: {{user.0.username}}</li>
     <li>Apellidos: {{user.0.lastName}}</li>
@@ -20,39 +30,39 @@
     <li>Gender: {{user.0.gender}}</li>
   </ul>
   <a href="/users/user-profile">Editar Perfil</a>
-  <br><br>
+</section>
 
+<section class="section-logged section-three">
   <h3>Tu contribución a Trajano: </h3>
-  
+
   <ul>
-  {{#each booksFoundbyUserId}}
-  <li><strong>Título: </strong>{{title}} --> <strong>Autor: </strong>{{author}} --> <strong>Estado: </strong>{{state}}</li>
-  <strong></strong>
-  {{/each}}
-</ul>
+    {{#each booksFoundbyUserId}}
+    <li><strong>Título: </strong>{{title}} --> <strong>Autor: </strong>{{author}} --> <strong>Estado: </strong>{{state}}
+    </li>
+    <strong></strong>
+    {{/each}}
+  </ul>
 
   <a href="/users/bookinfo">Añadir libro</a>
-  <br><br>
+</section>
 
+
+<section class="section-logged section-four">
+<div>
   <h3>¿Qué te apetece leer hoy?</h3>
   <a href="/books/randombook">Sugerencias</a>
-  <br><br>
-
 </div>
-
 <div>
   <a href="/auth/logout">Cerrar sesión</a>
 </div>
+</section>
 
-<a href="/">Atras</a>
-</div>
 
 <script>
   const inputDOMEl = document.querySelector('#dynamic-input')
   const formDOMEl = document.querySelector('#dynamic-form')
-  changePath = function() {
+  changePath = function () {
     return formDOMEl.setAttribute('action', `/books/${inputDOMEl.value.split(' ').join('%20')}`)
   }
-  inputDOMEl.addEventListener('blur', changePath )
+  inputDOMEl.addEventListener('blur', changePath)
 </script>
-
