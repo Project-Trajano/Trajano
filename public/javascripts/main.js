@@ -1,5 +1,3 @@
-
-
 window.onload = () => {
 
   console.log(window.location.href)
@@ -10,7 +8,7 @@ window.onload = () => {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         };
-        // console.log("center: ", center);
+
       },
       function () {
         console.log("Error in the geolocation service.");
@@ -22,81 +20,118 @@ window.onload = () => {
 
   function startMap() {
     const startlocation = {
-      lat: 41.3977381,
-      lng: 2.190471916
+      lat: 40.42417,
+      lng: -3.7019972
     };
     const markers = [];
 
     const map = new google.maps.Map(document.getElementById("map"), {
-      zoom: 7,
+      zoom: 13,
       center: startlocation
     });
 
-    // const locationStart = new google.maps.Marker({
-    //   position: {
-    //     lat: startlocation.lat,
-    //     lng: startlocation.lng
-    //   },
-    //   map: map,
-    //   title: "Barcelona Campus"
-    // });
+    let url = 'http://localhost:3000/locationsData'
+    let booksData = window.location.href + "/map"
+
 
     function getPlaces() {
-      axios
-        .get(window.location.href+"/map")
-        .then(response => {
-          console.log(response.data)
-          placePlaces(response.data);
-        })
-        .catch(error => {
-          console.log(error);
-        });
+      if (window.location.href === 'http://localhost:3000/') {
+        axios
+          .get(url)
+          .then(response => {
+            console.log(response.data)
+            placePlaces(response.data);
+          })
+          .catch(error => {
+            console.log(error);
+          });
+
+        function placePlaces(places) {
+          places.forEach(function (place) {
+            const center = {
+              lat: place.latitude,
+              lng: place.longitude
+            };
+            const pin = new google.maps.Marker({
+              position: center,
+              map: map,
+              title: place.name
+            });
+            markers.push(pin);
+          });
+        }
+      } else {
+        axios
+          .get(booksData)
+          .then(response => {
+            console.log(response.data)
+            placePlaces(response.data);
+          })
+          .catch(error => {
+            console.log(error);
+          });
+
+        function placePlaces(places) {
+          places.forEach(function (place) {
+            const center = {
+              lat: place.locationId.latitude,
+              lng: place.locationId.longitude
+            };
+            const pin = new google.maps.Marker({
+              position: center,
+              map: map,
+              title: place.name
+            });
+            markers.push(pin);
+          });
+        }
+      }
     }
 
 
-    function placePlaces(places) {
-      places.forEach(function (place) {
-        const center = {
-          lat: place.locationId.latitude,
-          lng: place.locationId.longitude
-        };
-        const pin = new google.maps.Marker({
-          position: center,
-          map: map,
-          title: place.name
-        });
-        markers.push(pin);
-      });
-    }
+    // function placePlaces(places) {
+    //   places.forEach(function (place) {
+    //     const center = {
+    //       lat: place.locationId.latitude,
+    //       lng: place.locationId.longitude
+    //     };
+    //     const pin = new google.maps.Marker({
+    //       position: center,
+    //       map: map,
+    //       title: place.name
+    //     });
+    //     markers.push(pin);
+    //   });
+    // }
 
     getPlaces();
 
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        function (position) {
-          const user_location = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          };
+    // if (navigator.geolocation) {
+    //   navigator.geolocation.getCurrentPosition(
+    //     function (position) {
+    //       const user_location = {
+    //         lat: position.coords.latitude,
+    //         lng: position.coords.longitude
+    //       };
 
-          map.setCenter(user_location);
+    //       map.setCenter(user_location);
 
-          const locationStart = new google.maps.Marker({
-            position: {
-              lat: user_location.lat,
-              lng: user_location.lng
-            },
-            map: map,
-            title: "You are here."
-          });
-        },
-        function () {
-          console.log("Error in the geolocation service.");
-        }
-      );
-    } else {
-      console.log("Browser does not support geolocation.");
-    }
+    //       const locationStart = new google.maps.Marker({
+    //         position: {
+    //           lat: user_location.lat,
+    //           lng: user_location.lng
+    //         },
+    //         map: map,
+    //         title: "You are here."
+    //       });
+    //     },
+    //     function () {
+    //       console.log("Error in the geolocation service.");
+    //     }
+    //   );
+    // } else {
+    //   console.log("Browser does not support geolocation.");
+    // }
   }
   startMap();
 };
