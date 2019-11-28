@@ -4,11 +4,7 @@ const ensureLogin = require("connect-ensure-login");
 const User = require("../models/user");
 const multer = require("multer");
 const uploadCloud = require("../config/cloudinary.js");
-<<<<<<< HEAD
-const upload = multer({ dest: "../pulic/uploads/" });
-=======
 // const upload = multer({ dest: "../public/uploads/" });
->>>>>>> 9c26de1a5987290346980a44b8f80face7f5e275
 const Location = require('../models/location')
 const Book = require('../models/book')
 
@@ -17,14 +13,19 @@ router.get(
   ensureLogin.ensureLoggedIn("/auth/login"),
   (req, res, next) => {
     let userId = req.user._id;
-    User.find({ _id: userId })
-      .then(user => {
-        res.render("users/user-dashboard", user[0]);
+    Book.find({userId: userId})
+      .then((booksFoundbyUserId) =>{
+        User.find({ _id: userId })
+        .then(user => {
+          console.log(booksFoundbyUserId)
+          res.render("users/user-dashboard", {user,booksFoundbyUserId});
+        })
+        .catch(err => {
+          console.log(err);
+          next();
+        });
       })
-      .catch(err => {
-        console.log(err);
-        next();
-      });
+    
   }
 );
 

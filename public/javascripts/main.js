@@ -32,14 +32,14 @@ window.onload = () => {
       center: startlocation
     });
 
-    const locationStart = new google.maps.Marker({
-      position: {
-        lat: startlocation.lat,
-        lng: startlocation.lng
-      },
-      map: map,
-      title: "Barcelona Campus"
-    });
+    // const locationStart = new google.maps.Marker({
+    //   position: {
+    //     lat: startlocation.lat,
+    //     lng: startlocation.lng
+    //   },
+    //   map: map,
+    //   title: "Barcelona Campus"
+    // });
 
     function getPlaces() {
       axios

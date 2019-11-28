@@ -1,8 +1,7 @@
 
 <br>
-
-<form action="/books/:title" method="POST">
-<input type="text" name="title" placeholder="Buscar libro">
+<form id="dynamic-form" action="/books/" method="POST">
+<input id="dynamic-input" type="text" name="title" placeholder="Buscar libro">
 <button type="submit" class="btn btn-dark">Buscar</button>
 </form>
 
@@ -13,18 +12,26 @@
 <div>
   <h3>Tu perfil: </h3>
   <ul>
-    <li>Nombre: {{username}}</li>
-    <li>Apellidos: {{lastName}}</li>
-    <li>Email: {{email}}</li>
-    <li>Teléfono: {{phone}}</li>
-    <li>Fecha de nacimiento: {{birthDate}}</li>
-    <li>Gender: {{gender}}</li>
+    <li>Nombre: {{user.0.username}}</li>
+    <li>Apellidos: {{user.0.lastName}}</li>
+    <li>Email: {{user.0.email}}</li>
+    <li>Teléfono: {{user.0.phone}}</li>
+    <li>Fecha de nacimiento: {{user.0.birthDate}}</li>
+    <li>Gender: {{user.0.gender}}</li>
   </ul>
   <a href="/users/user-profile">Editar Perfil</a>
   <br><br>
 
-  <h3>Tu colección: </h3>
-  <a href="/users/bookinfo">Colección de libros</a>
+  <h3>Tu contribución a Trajano: </h3>
+  
+  <ul>
+  {{#each booksFoundbyUserId}}
+  <li><strong>Título: </strong>{{title}} --> <strong>Autor: </strong>{{author}} --> <strong>Estado: </strong>{{state}}</li>
+  <strong></strong>
+  {{/each}}
+</ul>
+
+  <a href="/users/bookinfo">Añadir libro</a>
   <br><br>
 
   <h3>¿Qué te apetece leer hoy?</h3>
@@ -39,3 +46,13 @@
 
 <a href="/">Atras</a>
 </div>
+
+<script>
+  const inputDOMEl = document.querySelector('#dynamic-input')
+  const formDOMEl = document.querySelector('#dynamic-form')
+  changePath = function() {
+    return formDOMEl.setAttribute('action', `/books/${inputDOMEl.value.split(' ').join('%20')}`)
+  }
+  inputDOMEl.addEventListener('blur', changePath )
+</script>
+
