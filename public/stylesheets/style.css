@@ -87,14 +87,6 @@ section {
   justify-content: left;
   width: 100%; }
 
-.img-icon {
-  height: 5rem;
-  object-fit: cover; }
-
-.img-icon-login {
-  height: 8rem;
-  object-fit: cover; }
-
 #dynamic-input {
   box-sizing: border-box;
   width: 50vw;
@@ -132,6 +124,14 @@ section {
   font-size: 2rem;
   font-weight: 700;
   margin: 2rem 0; }
+
+.img-icon {
+  height: 5rem;
+  object-fit: cover; }
+
+.img-icon-login {
+  height: 8rem;
+  object-fit: cover; }
 
 .login-text {
   font-size: 3rem;
