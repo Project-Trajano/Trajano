@@ -10,7 +10,7 @@ router.get("/locationsData", (req, res) => {
     (err, locationsData) => {
       let output = JSON.parse(locationsData);
 
-      output = output.filter(location => location.country === "ES");
+      output = output.filter(location => location.country === "ES" && location.city === "Madrid");
       res.json(output);
     }
   );

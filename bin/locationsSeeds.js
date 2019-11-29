@@ -18,7 +18,7 @@ Location.collection.drop()
 fs.readFile("starbucksLocations/locations.json", "utf8", (err, locationsData) => {
   let output = JSON.parse(locationsData);
   output = output
-    .filter(location => location.country === "ES")
+    .filter(location => (location.country === "ES" && location.city === "Madrid"))
   let result = [...output]
   Location.insertMany(result)
     .then((inserted) => {
