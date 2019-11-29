@@ -31,7 +31,7 @@ window.onload = () => {
       center: startlocation
     });
 
-    let url = "https://trajano-project.herokuapp.com/";
+    let url = "https://trajano-project.herokuapp.com/locationsData";
     let booksData = window.location.href + "/map";
 
     function getPlaces() {
