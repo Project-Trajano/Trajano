@@ -1,30 +1,73 @@
-<h2>PERFIL DE USUARIO</h2>
-<div>
+<nav class="nav-logged-user">
+
+  <nav class="nav-left-section">
+    <a href="/users/user-dashboard"><img class="img-icon-ui" src="../images/Trajano-icon" alt="Trajano icon"></a>
+    <form id="dynamic-form" class="align-flex" action="/books/" method="POST" autocomplete="off">
+      <input id="dynamic-input" type="text" name="title" placeholder="Buscar libro">
+
+      <button type="submit" class="add-book btn-nav" >Buscar</button>
+      <span class="book-counter">Saldo: {{bookCounter}}</span>
+    </form>
+  </nav>
+  <a class="add-book" href="/users/bookinfo">Añadir libro</a>
+</nav>
+
+
+<section class="section-logged section-one">
+  <h2>Perfil de Usuario</h2>
+  <p>Aquí podrás ver y editar todos los datos de tu perfil</p>
+</section>
+
+
+<section class="section-logged section-two">
   <div>
     <h3>Información pública:</h3>
-    <form method="POST" action="/users/user-profile">
+    <form method="POST" action="/users/user-profile" autocomplete="off">
       <ul>
-        <li> Nombre: <input type="text" name="username" value="{{username}}"></li>
-        <li> Apellidos: <input type="text" name="lastName" value="{{lastName}}"></li>
-        <li> Email: <input type="text" name="email" value="{{email}}"></li>
-        <li> Teléfono: <input type="text" name="phone" value="{{phone}}"></li>
-        <li> Fecha de Nacimiento: <input type="date" name="birthDate" id="birthDate" value="1982-06-01"></li>
-        <li> Género: <input type="radio" name="gender" value="M" checked="checked"> Masculino   <input type="radio" name="gender" value="F"> Femenino</li>
+        <li> <span>Nombre:</span> <input class="input-field" type="text" name="username" value="{{username}}"></li>
+        <li> <span>Apellidos:</span> <input class="input-field" type="text" name="lastName" value="{{lastName}}"></li>
+        <li> <span>Email:</span> <input class="input-field" type="text" name="email" value="{{email}}"></li>
+        <li> <span>Teléfono:</span> <input class="input-field" type="text" name="phone" value="{{phone}}"></li>
+        <li> <span>Fecha de Nacimiento:</span> <input class="input-field" type="date" name="birthDate" id="birthDate"
+            value="1982-06-01"></li>
+        <li> <span>Género:</span> <input type="radio" name="gender" value="M" checked="checked"> Masculino <input
+            type="radio" name="gender" value="F"> Femenino</li>
 
       </ul>
       <input type="hidden" name="_id" value="{{id}}">
-      <input type="submit" value="Guardar">
+      <div class="center-button">
+        <input class="add-book" type="submit" value="Guardar">
+      </div>
+
     </form>
   </div>
+</section>
+
+<section class="section-logged section-two">
   <div>
     <h3>Imagen de perfil:</h3>
-    <form action="/users/uploadPhoto" method="POST" enctype="multipart/form-data">
-      <img src={{imgPath}} id="profile-image" alt="user-photo">
-      <input type="file" name="photo">
-      <input type="submit" value="Subir Imagen">
+    <form action="/users/uploadPhoto" method="POST" enctype="multipart/form-data" autocomplete="off">
+      <div class="img-form">
+        <img src={{imgPath}} id="profile-image" alt="user-photo">
+        <input type="file" name="photo">
+      </div>
+
+      <div class="center-button">
+        <input class="add-book" type="submit" value="Subir Imagen">
+      </div>
     </form>
   </div>
-</div>
+</section>
+
 <p><a href="/users/user-dashboard">Atras</a></p>
 
 {{!-- <script>document.getElementById('birthDate').value = "birthDate"</script> --}}
+
+<script>
+  const inputDOMEl = document.querySelector('#dynamic-input')
+  const formDOMEl = document.querySelector('#dynamic-form')
+  changePath = function () {
+    return formDOMEl.setAttribute('action', `/books/${inputDOMEl.value.split(' ').join('%20')}`)
+  }
+  inputDOMEl.addEventListener('blur', changePath)
+</script>

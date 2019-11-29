@@ -7,15 +7,16 @@
       <a href="/"><img class="img-icon" src="../images/close" alt="Trajano icon"></a>
     </section>
 
-    <form action="/auth/login" method="POST" class="form-container">
-      <label for="username">Username</label>
-      <input id="username" type="text" name="username" placeholder="JonSnow">
-      <label for="password">Password</label>
-      <input id="password" type="password" name="password" placeholder="Your password">
+    <form action="/auth/login" method="POST" class="form-container" autocomplete="off">
+     
+        
+      <input class="input username-input" id="username" type="text" name="username" placeholder="Nombre de Usuario">
+      <input class="input password-input" id="password" type="password" name="password" placeholder="Contraseña">
+
       {{#if message }}
       <div class="error-message">{{ message }}</div>
       {{/if}}
-      <button>Login</button>
+      <button class="btn login-btn">Login</button>
     </form>
 
     <section class="login-bottom-section">

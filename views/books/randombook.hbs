@@ -1,9 +1,94 @@
-<div>
-  <h2>¿Te apetece leer otro libro?</h2>
-  <h3>Nuestras sugerencias para ti: </h3>
-  {{#each book}}
-  <h4>{{title}}</h4>
-  Autor: {{author}} | Género: <a href="/randombook/{{genre}}">{{genre}}</a>| Calificación: {{rating}} |
-  <a href="/books/{{title}}">Seleccionar</a>
-  {{/each}}
+<nav class="nav-logged-user">
+  <nav class="nav-left-section">
+    <a href="/users/user-dashboard"><img class="img-icon-ui" src="../images/Trajano-icon" alt="Trajano icon"></a>
+    <form id="dynamic-form" class="align-flex" action="/books/" method="POST" autocomplete="off">
+      <input id="dynamic-input" type="text" name="title" placeholder="Buscar libro">
+
+      <button type="submit" class="add-book btn-nav" >Buscar</button>
+      <span class="book-counter">Saldo: {{userInfo.bookCounter}}</span>
+    </form>
+  </nav>
+  <a class="add-book" href="/users/bookinfo">Añadir libro</a>
+</nav>
+
+<section class="section-logged section-one">
+  <h3>¿Te apetece leer otro libro?</h3>
+  <p>Aquí podrás elegir qué te apetece leer o seleccionar una de nuestras sugerencias</p>
+</section>
+
+<section class="section-logged section-two">
+  <div>
+
+    <h3>Nuestras sugerencias para ti: </h3>
+    <ol>
+      {{#each book}}
+      <li>
+        {{title}} | {{author}} | {{genre}} | {{rating}} | <a href="/books/{{title}}">Seleccionar</a>
+      </li>
+      {{/each}}
+    </ol>
+
+  </div>
+</section>
+
+<section class="section-logged section-three">
+
+  <h3>Filtra por género:</h3>
+  <div id="genres-list"></div>
+  </div>
+  <div id="books-list"></div>
+</section>
+
+<div class="center-button">
+  <a class="add-book blue" href="/users/user-dashboard">Volver al Panel</a>
 </div>
+
+
+
+<script>
+  let genre;
+  let list;
+
+  function filterByGenre(genre) {
+    document.getElementById("books-list").innerHTML = "";
+
+    list
+      .filter(book => book.genre === genre)
+      .forEach(book => {
+        document.getElementById(
+          "books-list"
+        ).innerHTML += `<p class="filter-by-genre"><a href="/books/${book.title.split(' ').join('%20')}">${book.title}</a> Autor: ${book.author} | Género: ${book.genre}</p>`;
+      });
+  }
+
+  axios.get("http://localhost:3000/getList").then(data => {
+    list = data.data;
+    // 1. con el list.map() obvio todos los datos de list con todos los datos de libros EXCEPTO el genero que es sobre lo que pretendo iterar para obtener los diferentes nombres de generos
+    // 2. set in javascript es como un array pero impide elementos repetidos
+    // 3. spread operator en un Set convierte el Set a un Array
+    // 4. recuerda que Set no tiene metodos como filter o map que son de Arrays y por eso uso el spread
+    // 5. despues de convertir el Set en un array ordenamos alfabeticamente los generos que es lo que estamos tratando de extraer SIN repeticiones
+    // porque si no lo convirtieramos con spread operator Set -> Array no tendrias posibilidad de hacer filter o ningun otro metodo de arrays
+    // 6. evitamos con el filter que el genero undefined te aparezca entre tus posibles canditatos (esto es un error de la API de google)
+    let differentGenres = [...new Set(list.map(book => book.genre))]
+      .sort((a, b) => (a > b ? 1 : -1))
+      .filter(genre => genre !== "undefined");
+    let arr;
+
+    differentGenres.forEach(function (genre, idx) {
+      document.getElementById(
+        "genres-list"
+      //).innerHTML += ` <a class="add-book blue"><button class="button-genre" onclick="filterByGenre('${genre}')">${genre}</button></a>`;
+      ).innerHTML += ` <a class="add-book dark-blue" onclick="filterByGenre('${genre}')">${genre}</a>`;
+    });
+  });
+</script>
+
+<script>
+  const inputDOMEl = document.querySelector('#dynamic-input')
+  const formDOMEl = document.querySelector('#dynamic-form')
+  changePath = function () {
+    return formDOMEl.setAttribute('action', `/books/${inputDOMEl.value.split(' ').join('%20')}`)
+  }
+  inputDOMEl.addEventListener('blur', changePath)
+</script>

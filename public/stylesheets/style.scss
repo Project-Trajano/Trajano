@@ -67,12 +67,42 @@ a {
 
 /////////////////////
 
+.add-book {
+  text-decoration: none;
+  box-sizing: border-box;
+  background-color: #FEE599;
+  border: .2rem grey solid;
+  border-radius: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 5rem;
+  width: 30rem;
+  margin: 1rem 0;
+  font-size: 2rem;
+  color: black; 
+}
 
-section {
+.add-book-form {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: 0 2rem 0rem 2rem;
+  align-items: center;
+}
+
+.align-flex {
+  display: flex;
+  align-items: center;
+}
+
+.book-counter{
+  font-size: 3rem;
+  font-weight: 700;
+  padding-left: 1rem;
+  color: grey;
+}
+
+.long {
+  width: 40rem;
 }
 
 .decorated-section {
@@ -80,6 +110,16 @@ section {
   padding: 3rem;
   margin: 0 2rem;
   border-radius: 2rem; 
+}
+
+.center-button{
+  display: flex;
+  justify-content: center;
+}
+
+#description-main {
+  line-height: 1.5rem;
+  font-size: 1.2rem;
 }
 
 #map {
@@ -90,42 +130,25 @@ section {
   border-radius: 2rem;
 }
 
-.nav-bar {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 0rem;
-  margin-bottom: 2rem;
-  padding: 2rem;
-  background-color: lightgrey;
-}
-
-.nav-left-section {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: left;
-  width: 100%;
-}
-
-
-#dynamic-input {
-  box-sizing: border-box;
-  width: 50vw;
-  border: .1rem solid grey;
-  border-radius: 1rem;
-  height: 3rem;
-  padding: 0 1rem;
-  font-size: 1.2rem;
-}
-
 .btn {
   border: .1rem solid grey;
   border-radius: 1rem;
   height: 3rem;
   padding: 0 1rem;
   font-size: 1.2em;
+}
+
+.btn-dark{
+  box-sizing: border-box;
+  height: 5rem;
+}
+
+.btn-nav {
+  background-color: #413B4A;
+  color: white;
+  cursor: pointer;
+  width: 10rem;
+  border-radius: 1rem;
 }
 
 .btn-register {
@@ -136,6 +159,53 @@ section {
   background-color: #FEE599;
 }
 
+.button-genre {
+  border: none;
+  background: none;
+  color: white;
+}
+
+.dark-blue {
+  background-color: #413B4A;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-left: 3rem;
+}
+
+.dark-blue-thin {
+  height: 3rem;
+  width: 15rem;
+  display: inline;
+}
+
+#dynamic-input {
+  box-sizing: border-box;
+  width: 50vw;
+  border: .1rem solid grey;
+  border-radius: 1rem;
+  height: 5rem;
+  padding: 0 1rem;
+  font-size: 2rem;
+}
+
+#form-group {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  div {
+    width: 80rem;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border: 1px, solid black;
+  }
+  .input-field {
+    width: 60rem;
+  }
+}
+
 .full-screen-container {
   width: 100vw;
   height: 100vh;
@@ -143,6 +213,11 @@ section {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.filter-by-genre {
+  text-align: center;
+  margin-bottom: 1rem;
 }
 
 .h1-home, .h2-home {
@@ -161,6 +236,10 @@ section {
  }
  
  .img-icon-login {
+   height: 8rem;
+   object-fit: cover;
+  }
+ .img-icon-ui {
    height: 8rem;
    object-fit: cover;
   }
@@ -185,10 +264,14 @@ section {
   font-size:2rem;
 }
 
+#genres-list {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 1rem;
+}
 
 .google-login {
-  color: white;
-  background-color: red;
+  background-color: blue;
   border-radius: 3rem;
   display: flex;
   justify-content: center;
@@ -197,16 +280,42 @@ section {
   width: 30rem;
   margin: 1rem 0;
   font-size: 2rem;
-}
-
-#google-login-text {
   text-decoration: none;
+  color: white;
 }
 
 .h2-home {
   font-size: 3rem;
   font-weight: 600;
   margin-bottom: 3rem;
+}
+
+.img-form {
+  display: flex;
+  flex-direction: column;
+  
+  align-items: center;
+}
+
+.input {
+  height: 3rem;
+  width: 30rem;
+  border: .2rem solid grey;
+  border-radius: 1rem;
+  margin-bottom: .6rem;
+  font-size: 1.7rem; 
+  text-align: center;
+}
+
+.input-field {
+  height: 3rem;
+  margin-left: 2rem;
+  border-radius: 2rem;
+  background-color: lightgrey;
+  border: none;
+  padding-left: 2rem;
+  font-size: 1.5rem;
+  font-family: 'Comfortaa', "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 .login-main {
@@ -240,6 +349,15 @@ section {
   font-size: 2rem;
 }
 
+.login-btn {
+  background-color: grey;
+  color: white;
+  font-size: 2rem;
+  width: 20rem;
+  height: 3rem;
+  margin-bottom: 2rem;
+}
+
 .login-signup-container {
   box-sizing: border-box;
   display: flex;
@@ -249,6 +367,120 @@ section {
   font-size: 3rem;
   width: 100%;
   padding:0 8rem;
+}
+
+
+.nav-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0rem;
+  margin-bottom: 2rem;
+  padding: 2rem;
+  background-color: lightgrey;
+}
+
+.nav-left-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+  width: 100%;
+}
+
+.nav-logged-user{
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0rem;
+  margin-bottom: 2rem;
+  padding: 2rem;
+  background-color: lightgrey;
+  position:fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.red {
+  background-color: #CF2926;
+  color: white;
+}
+
+.blue {
+  background-color: #475AB2;
+  color: white;
+}
+
+.search-field-form{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  label {
+    margin-bottom: 1rem;
+  }
+}
+
+.search-field {
+  width: 50%;
+  margin-bottom: 2rem;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 2rem 0rem 2rem;
+}
+
+.section-logged {
+  box-sizing: border-box;
+  border-radius: 2rem;
+  border: .2rem solid grey;
+  margin: 2rem 2rem 0 2rem;
+  padding: 2rem;
+  font-size: 1.5rem;
+  font-weight: 300;
+  li{
+    margin-bottom: 1rem;
+  }
+  h3{
+    margin-bottom: 1.2rem;
+    font-size: 2rem;
+    font-weight: 700;
+  }
+  span{
+    font-weight: 700;
+  }
+  ol{
+    padding-left: 2rem;
+  }
+  ol>li{
+    list-style: decimal;
+  }
+  a{
+    text-align: center;
+  }
+}
+
+.section-one{
+  margin-top: 12rem;
+  text-align: center;
+  border: none;
+  font-size: 1.5rem;
+  h2{
+    font-size: 2rem;
+    font-weight: 700;
+    padding: 1rem;
+  }
+}
+
+.selection-label {
+  margin-right: 2rem;
 }
 
 #profile-image {
