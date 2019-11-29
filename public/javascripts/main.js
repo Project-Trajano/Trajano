@@ -32,7 +32,7 @@ window.onload = () => {
     });
 
     let url = "https://trajano-project.herokuapp.com/locationsData";
-    let booksData = window.location.href + "map";
+    let booksData = window.location.href + "/map";
 
     function getPlaces() {
       if (window.location.href === "https://trajano-project.herokuapp.com/") {
@@ -84,7 +84,7 @@ window.onload = () => {
             const pin = new google.maps.Marker({
               position: center,
               map: map,
-              title: place.name
+              title: place.name,
             });
             markers.push(pin);
           });
