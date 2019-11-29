@@ -1,16 +1,14 @@
 window.onload = () => {
-
-  console.log(window.location.href)
+  console.log(window.location.href);
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
-      function (position) {
+      function(position) {
         const center = {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         };
-
       },
-      function () {
+      function() {
         console.log("Error in the geolocation service.");
       }
     );
@@ -18,6 +16,9 @@ window.onload = () => {
     console.log("Browser does not support geolocation.");
   }
 
+  function randomFloat(min, max) {
+    return Math.random() * (max - min) + min;
+  }
   function startMap() {
     const startlocation = {
       lat: 40.42417,
@@ -30,16 +31,15 @@ window.onload = () => {
       center: startlocation
     });
 
-    let url = 'http://localhost:3000/locationsData'
-    let booksData = window.location.href + "/map"
-
+    let url = "http://localhost:3000/locationsData";
+    let booksData = window.location.href + "/map";
 
     function getPlaces() {
-      if (window.location.href === 'http://localhost:3000/') {
+      if (window.location.href === "http://localhost:3000/") {
         axios
           .get(url)
           .then(response => {
-            console.log(response.data)
+            console.log(response.data);
             placePlaces(response.data);
           })
           .catch(error => {
@@ -47,16 +47,20 @@ window.onload = () => {
           });
 
         function placePlaces(places) {
-          places.forEach(function (place) {
+          places.forEach(function(place) {
             const center = {
               lat: place.latitude,
               lng: place.longitude
             };
-            const pin = new google.maps.Marker({
-              position: center,
-              map: map,
-              title: place.name
-            });
+            const pin = new google.maps.Marker(
+              {
+                position: center,
+                map: map,
+                title: place.name,
+                icon: "images/book-icon.png"
+              },
+              randomFloat(0.1, 1.25) * 1000
+            );
             markers.push(pin);
           });
         }
@@ -64,7 +68,7 @@ window.onload = () => {
         axios
           .get(booksData)
           .then(response => {
-            console.log(response.data)
+            console.log(response.data);
             placePlaces(response.data);
           })
           .catch(error => {
@@ -72,7 +76,7 @@ window.onload = () => {
           });
 
         function placePlaces(places) {
-          places.forEach(function (place) {
+          places.forEach(function(place) {
             const center = {
               lat: place.locationId.latitude,
               lng: place.locationId.longitude
@@ -87,7 +91,6 @@ window.onload = () => {
         }
       }
     }
-
 
     // function placePlaces(places) {
     //   places.forEach(function (place) {

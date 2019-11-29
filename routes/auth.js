@@ -73,7 +73,7 @@ router.post("/signup", (req, res, next) => {
     newUser
       .save()
       .then(() => {
-        res.redirect("/");
+        res.render("auth/mailverification");
       })
       .catch(err => {
         res.render("auth/signup", { message: "Something went wrong" });
@@ -93,10 +93,12 @@ router.post("/signup", (req, res, next) => {
         from: "Trajano",
         to: email,
         subject: "Bienvenido a Trajano",
-        text: "Please verify your email address by clicking the link below",
-        html: `<a href="${process.env.LMS}${token}">Verificar</a>`
+        html: `Gracias por registrarte en Trajano! <br>
+        Para finalizar el registro necesitamos verificar su correo electrónico. <br><br>
+        Haga click  
+        <a href="${process.env.LMS}${token}">aquí</a> para continuar. <br><br>`
       })
-      .then(info => res.render("auth/message", { email, token }))
+      .then(info => res.render("auth/login", { email, token }))
       .catch(err => {
         res.render("auth/signup", { message: "Something went wrong" });
       });
