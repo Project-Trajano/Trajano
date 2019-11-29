@@ -8,24 +8,49 @@ const uploadCloud = require("../config/cloudinary.js");
 const Location = require('../models/location')
 const Book = require('../models/book')
 
+
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * i)
+    const temp = array[i]
+    array[i] = array[j]
+    array[j] = temp
+  }
+  return array;
+}
+
 router.get(
   "/user-dashboard/",
   ensureLogin.ensureLoggedIn("/auth/login"),
   (req, res, next) => {
     let userId = req.user._id;
-    Book.find({userId: userId})
-      .then((booksFoundbyUserId) =>{
-        User.find({ _id: userId })
-        .then(user => {
-          console.log(booksFoundbyUserId)
-          res.render("users/user-dashboard", {user,booksFoundbyUserId});
-        })
-        .catch(err => {
-          console.log(err);
-          next();
-        });
+    Book.find()
+      .limit(5)
+      .then((books) => {
+        let book = shuffle(books);
+        Book.find({
+            userId: userId
+          })
+          .then((booksFoundbyUserId) => {
+            User.find({
+                _id: userId
+              })
+              .then(user => {
+                console.log(booksFoundbyUserId)
+                res.render("users/user-dashboard", {
+                  user,
+                  booksFoundbyUserId,
+                  book
+                });
+              })
+              .catch(err => {
+                console.log(err);
+                next();
+              });
+          })
       })
-    
+
+
   }
 );
 
@@ -71,13 +96,13 @@ router.post("/user-profile", (req, res) => {
   const gender = req.body.gender;
 
   User.findByIdAndUpdate(req.body._id, {
-    username,
-    lastName,
-    email,
-    phone,
-    birthDate,
-    gender
-  })
+      username,
+      lastName,
+      email,
+      phone,
+      birthDate,
+      gender
+    })
     .then(() => {
       // console.log(imgPath);
       res.redirect("user-dashboard");
@@ -92,7 +117,10 @@ router.post("/uploadPhoto", uploadCloud.single("photo"), (req, res) => {
   const imgPath = req.file.url;
   const imgName = req.file.originalname;
   console.log(req.user);
-  User.findByIdAndUpdate(req.user._id, { imgPath, imgName })
+  User.findByIdAndUpdate(req.user._id, {
+      imgPath,
+      imgName
+    })
     .then(() => {
       res.redirect("user-dashboard");
     })
@@ -160,4 +188,3 @@ router.post("/bookinfo/save", (req, res, next) => {
 });
 
 module.exports = router;
-

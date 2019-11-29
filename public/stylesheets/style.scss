@@ -117,6 +117,11 @@ a {
   justify-content: center;
 }
 
+.center-text{
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
 #description-main {
   line-height: 1.5rem;
   font-size: 1.2rem;
@@ -403,6 +408,7 @@ a {
   top: 0;
   left: 0;
   width: 100%;
+  z-index: 1000;
 }
 
 .red {

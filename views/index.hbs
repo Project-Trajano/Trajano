@@ -2,9 +2,10 @@
   <div class="nav-left-section">
     <a href="/"><img class="img-icon-ui" src="../images/Trajano-icon" alt="Trajano icon"></a>
     <div>
-      <form id="dynamic-form" class="align-flex" action="/books/" method="POST" autocomplete="off">
+      <form id="dynamic-form" class="align-flex" action="/auth/access" method="POST" autocomplete="off">
         <input id="dynamic-input" type="text" name="title" placeholder="Buscar libro">
-        <button class="add-book btn-nav" type="submit" class="btn btn-dark">Buscar</button>
+        {{!-- <button class="add-book btn-nav" type="submit" class="btn btn-dark">Buscar</button> --}}
+        <a href="/auth/access" class="add-book btn-nav">Buscar</a>
       </form>
     </div>
   </div>

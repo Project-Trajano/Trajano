@@ -81,7 +81,7 @@ router.post("/:id/book-selected", (req, res, next) => {
   const bookCounter = req.user.bookCounter - 1;
   Books.findByIdAndDelete(req.params.id).then(() => {
     User.findByIdAndUpdate(req.user._id, { bookCounter }).then(() => {
-      res.redirect("/users/bookinfo");
+      res.redirect("/users/user-dashboard");
     });
   });
 });
