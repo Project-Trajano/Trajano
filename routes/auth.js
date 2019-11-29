@@ -96,7 +96,7 @@ router.post("/signup", (req, res, next) => {
         html: `Gracias por registrarte en Trajano! <br>
         Para finalizar el registro necesitamos verificar su correo electrónico. <br><br>
         Haga click  
-        <a href="${process.env.LMS}${token}">aquí</a> para continuar. <br><br>`
+        <a href="${process.env.MS}${token}">aquí</a> para continuar. <br><br>`
       })
       .then(info => res.render("auth/login", { email, token }))
       .catch(err => {
