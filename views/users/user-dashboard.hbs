@@ -5,7 +5,7 @@
     <form id="dynamic-form" class="align-flex" action="/books/" method="POST" autocomplete="off">
       <input id="dynamic-input" type="text" name="title" placeholder="Buscar libro">
 
-      <button type="submit" class="btn btn-dark">Buscar</button>
+      <button type="submit" class="add-book btn-nav">Buscar</button>
       <span class="book-counter">Saldo: {{user.0.bookCounter}}</span>
     </form>
   </nav>
@@ -55,17 +55,26 @@
 <section class="section-logged section-four">
   <div>
     <h3>¿Qué te apetece leer hoy?</h3>
+
+    <ol>
+      {{#each book}}
+      <li>
+        {{title}} | {{author}} | {{genre}} | {{rating}} | <a href="/books/{{title}}">Seleccionar</a>
+      </li>
+      {{/each}}
+    </ol>
+
     <div class="center-button">
       <a class="add-book" href="/books/randombook">Más Sugerencias</a>
     </div>
-    
+
   </div>
 
 </section>
 
-  <div class="center-button">
-    <a class="add-book red" href="/auth/logout">Cerrar Sesión</a>
-  </div>
+<div class="center-button">
+  <a class="add-book red" href="/auth/logout">Cerrar Sesión</a>
+</div>
 
 
 <script>

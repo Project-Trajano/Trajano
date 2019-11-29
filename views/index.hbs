@@ -1,17 +1,17 @@
-<nav class="nav-bar">
+<nav class="nav-logged-user">
   <div class="nav-left-section">
-    <a href="/"><img class="img-icon" src="../images/Trajano-icon" alt="Trajano icon"></a>
+    <a href="/"><img class="img-icon-ui" src="../images/Trajano-icon" alt="Trajano icon"></a>
     <div>
-      <form id="dynamic-form" action="/books/" method="POST" autocomplete="off">
+      <form id="dynamic-form" class="align-flex" action="/books/" method="POST" autocomplete="off">
         <input id="dynamic-input" type="text" name="title" placeholder="Buscar libro">
-        <button type="submit" class="btn btn-dark">Buscar</button>
+        <button class="add-book btn-nav" type="submit" class="btn btn-dark">Buscar</button>
       </form>
     </div>
   </div>
   <a href="/auth/access" class="add-book long">Regístrate o Inicia Sesión</a>
 </nav>
 
-<section>
+<section class="section-one">
   <h1 class="h1-home">Trajano, tu plataforma de intercambio de libros de los de siempre</h1>
 </section>
 <section class="decorated-section">
