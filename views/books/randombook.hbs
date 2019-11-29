@@ -61,7 +61,7 @@
       });
   }
 
-  axios.get("http://localhost:3000/getList").then(data => {
+  axios.get("https://trajano-project.herokuapp.com/getList").then(data => {
     list = data.data;
     // 1. con el list.map() obvio todos los datos de list con todos los datos de libros EXCEPTO el genero que es sobre lo que pretendo iterar para obtener los diferentes nombres de generos
     // 2. set in javascript es como un array pero impide elementos repetidos

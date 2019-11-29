@@ -31,11 +31,11 @@ window.onload = () => {
       center: startlocation
     });
 
-    let url = "http://localhost:3000/locationsData";
+    let url = "https://trajano-project.herokuapp.com/";
     let booksData = window.location.href + "/map";
 
     function getPlaces() {
-      if (window.location.href === "http://localhost:3000/") {
+      if (window.location.href === "https://trajano-project.herokuapp.com/") {
         axios
           .get(url)
           .then(response => {
