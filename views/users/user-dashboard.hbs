@@ -1,10 +1,12 @@
 <nav class="nav-logged-user">
 
   <nav class="nav-left-section">
-    <a href="/"><img class="img-icon-ui" src="../images/Trajano-icon" alt="Trajano icon"></a>
-    <form id="dynamic-form align-flex" action="/books/" method="POST" autocomplete="off">
+    <a href="/users/user-dashboard"><img class="img-icon-ui" src="../images/Trajano-icon" alt="Trajano icon"></a>
+    <form id="dynamic-form" class="align-flex" action="/books/" method="POST" autocomplete="off">
       <input id="dynamic-input" type="text" name="title" placeholder="Buscar libro">
+
       <button type="submit" class="btn btn-dark">Buscar</button>
+      <span class="book-counter">Saldo: {{user.0.bookCounter}}</span>
     </form>
   </nav>
 
@@ -20,42 +22,50 @@
 </section>
 
 <section class="section-logged section-two">
-<h3>Tu perfil: </h3>
+  <h3>Tu perfil: </h3>
   <ul>
-    <li>Nombre: {{user.0.username}}</li>
-    <li>Apellidos: {{user.0.lastName}}</li>
-    <li>Email: {{user.0.email}}</li>
-    <li>Teléfono: {{user.0.phone}}</li>
-    <li>Fecha de nacimiento: {{user.0.birthDate}}</li>
-    <li>Gender: {{user.0.gender}}</li>
+    <li><span>Nombre:</span> {{user.0.username}}</li>
+    <li><span>Apellidos:</span> {{user.0.lastName}}</li>
+    <li><span>Email:</span> {{user.0.email}}</li>
+    <li><span>Teléfono:</span> {{user.0.phone}}</li>
+    <li><span>Fecha </span>de nacimiento: {{user.0.birthDate}}</li>
+    <li><span>Gender:</span> {{user.0.gender}}</li>
   </ul>
-  <a href="/users/user-profile">Editar Perfil</a>
+  <div class="center-button">
+    <a class="add-book" href="/users/user-profile">Editar Perfil</a>
+  </div>
+
 </section>
 
 <section class="section-logged section-three">
   <h3>Tu contribución a Trajano: </h3>
 
-  <ul>
+  <ol>
     {{#each booksFoundbyUserId}}
-    <li><strong>Título: </strong>{{title}} --> <strong>Autor: </strong>{{author}} --> <strong>Estado: </strong>{{state}}
-    </li>
-    <strong></strong>
+    <li>{{title}} | {{author}} | {{state}}</li>
     {{/each}}
-  </ul>
+  </ol>
+  <div class="center-button">
+    <a class="add-book" href="/users/bookinfo">Añadir Libro</a>
+  </div>
 
-  <a href="/users/bookinfo">Añadir libro</a>
 </section>
 
 
 <section class="section-logged section-four">
-<div>
-  <h3>¿Qué te apetece leer hoy?</h3>
-  <a href="/books/randombook">Sugerencias</a>
-</div>
-<div>
-  <a href="/auth/logout">Cerrar sesión</a>
-</div>
+  <div>
+    <h3>¿Qué te apetece leer hoy?</h3>
+    <div class="center-button">
+      <a class="add-book" href="/books/randombook">Más Sugerencias</a>
+    </div>
+    
+  </div>
+
 </section>
+
+  <div class="center-button">
+    <a class="add-book red" href="/auth/logout">Cerrar Sesión</a>
+  </div>
 
 
 <script>

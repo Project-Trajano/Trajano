@@ -8,6 +8,8 @@ const Location = require("../models/location")
 
 router.get("/randombook", (req, res, next) => {
 
+  let userInfo = req.user;
+  console.log(userInfo)
   function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * i)
@@ -23,7 +25,7 @@ router.get("/randombook", (req, res, next) => {
     .then(book => {
       shuffle(book);
       res.render("books/randombook", {
-        book
+        book, userInfo
       });
     })
     .catch(err => {
@@ -33,12 +35,13 @@ router.get("/randombook", (req, res, next) => {
 });
 
 router.get("/:title", (req, res, next) => {
+  let userInfo = req.user;
   Books.find({
     title: req.params.title
   })
     .populate("locationId")
     .then(booksFound => {
-      res.render("books/bookselect", { booksFound });
+      res.render("books/bookselect", { booksFound, userInfo });
     })
     .catch(err => {
       console.log(err);
@@ -57,6 +60,7 @@ router.get("/:title/map", (req, res, next) => {
 })
 
 router.post("/:title", (req, res, next) => {
+  
   Books.find({
       title: req.body.title
     })
