@@ -84,8 +84,7 @@ window.onload = () => {
             const pin = new google.maps.Marker({
               position: center,
               map: map,
-              title: place.name,
-              icon: "images/book-icon.png"
+              title: place.name
             });
             markers.push(pin);
           });
