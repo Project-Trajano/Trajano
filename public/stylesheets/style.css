@@ -96,12 +96,9 @@ a {
   display: flex;
   justify-content: center; }
 
-<<<<<<< HEAD
 .center-text {
   text-align: center; }
 
-=======
->>>>>>> 3a08f746396a1ade28fd7c1416d60b2887e65b04
 #description-main {
   line-height: 1.5rem;
   font-size: 1.2rem; }
